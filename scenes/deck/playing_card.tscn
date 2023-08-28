@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bwuuok57igebi"]
 
-[ext_resource type="Script" path="res://scenes/playing_card.gd" id="1_2ghys"]
+[ext_resource type="Script" path="res://scenes/deck/playing_card.gd" id="1_npmuv"]
 
 [node name="PlayingCard" type="Node2D"]
-script = ExtResource("1_2ghys")
+script = ExtResource("1_npmuv")
