@@ -5,7 +5,7 @@ extends Node2D
 
 func _ready():
 	var deck = deck_manager.initialize_deck()
-	
+		
 	for suit_values in deck.values():
 		for suit in suit_values.values():
 			suit.global_position = Vector2(50, 50)

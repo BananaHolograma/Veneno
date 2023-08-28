@@ -57,7 +57,10 @@ func instantiate_french_playing_card(suit: String, value: String) -> PlayingCard
 	
 	return playing_card.initialize({
 		"symbol_texture": load(base_french_card_white_path.format({"suit": suit, "value": value + "_" + suit})),
+		"selected_texture": load(base_french_card_path.format({"suit": suit, "value": value + "_" + suit})),
 		"back_texture": back_texture,
+		"suit": suit,
+		"symbol_value": value,
 		"current_value": FRENCH_TABLE_VALUES[value],
 		"table_value": FRENCH_TABLE_VALUES[value],
 		"is_poison": suit == POISON_SUIT.to_lower()
