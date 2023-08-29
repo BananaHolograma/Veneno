@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddrlh34q4l4se"
-path="res://.godot/imported/5_clubs.png-412958340af1d65b6579344a8b2fa571.ctex"
+uid="uid://dl7l3i6xqvj7h"
+path="res://.godot/imported/poker_table_background.jpg-0e75616efb3ea5d5c50de2573ca45cc5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cards/french/clubs/5_clubs.png"
-dest_files=["res://.godot/imported/5_clubs.png-412958340af1d65b6579344a8b2fa571.ctex"]
+source_file="res://assets/background/poker_table_background.jpg"
+dest_files=["res://.godot/imported/poker_table_background.jpg-0e75616efb3ea5d5c50de2573ca45cc5.ctex"]
 
 [params]
 

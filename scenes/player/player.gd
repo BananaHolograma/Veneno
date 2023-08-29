@@ -19,9 +19,6 @@ var is_player_turn: bool = false:
 				turn_finished.emit()
 
 
-func _ready():
-	_draw_card_slots()
-
 func pick_card(card: PlayingCard):
 	if cards_in_hand.size() == 3:
 		cards_in_hand.append(card)
@@ -32,20 +29,4 @@ func pick_card(card: PlayingCard):
 func collect_cards(cards: Array[PlayingCard]):
 	collected_cards.append_array(cards)
 	new_collected_cards.emit(cards)
-
-
-func _draw_card_slots():
-	for card in cards_in_hand:
-		var slot = TextureRect.new()
-		slot.texture = card.symbol_texture.texture
-		slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-		slot.size = card.symbol_texture.get_rect().size
-		
-		cards_in_hand_layer.add_child(slot)
-		
-		var panel = Panel.new()
-		panel.custom_minimum_size = slot.size
-		panel.show_behind_parent = true
-		slot.add_child(panel)
-
 		

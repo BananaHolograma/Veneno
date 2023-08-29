@@ -1,11 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://b83imna4ns5qu"]
+[gd_scene load_steps=7 format=3 uid="uid://b83imna4ns5qu"]
 
 [ext_resource type="Script" path="res://scenes/playing_cards_table/playing_cards_table.gd" id="1_4nw15"]
 [ext_resource type="Script" path="res://scenes/deck/deck_manager.gd" id="2_2fhbp"]
 [ext_resource type="Texture2D" uid="uid://ddw8uwxynji0s" path="res://assets/backs/back_black_basic_white.png" id="3_ieajk"]
 [ext_resource type="Texture2D" uid="uid://cjqnt8bkviclm" path="res://assets/backs/back_blue_basic.png" id="4_ocxvl"]
+[ext_resource type="Script" path="res://scenes/deck/pile_slot.gd" id="5_idm15"]
+[ext_resource type="Texture2D" uid="uid://c4mr6uppujmcq" path="res://assets/background/poker_table_green.jpg" id="5_y2rfo"]
 
-[node name="PlayingCardsTable" type="Node2D"]
+[node name="PlayingCardsTable" type="Node"]
 script = ExtResource("1_4nw15")
 
 [node name="DeckManager" type="Node" parent="."]
@@ -17,15 +19,32 @@ script = ExtResource("2_2fhbp")
 
 [node name="Playground" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="Playground"]
+[node name="Background" type="Control" parent="Playground"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="Playground/Control"]
+[node name="TextureRect" type="TextureRect" parent="Playground/Background"]
+show_behind_parent = true
+offset_right = 640.0
+offset_bottom = 408.0
+mouse_filter = 2
+texture = ExtResource("5_y2rfo")
+
+[node name="CenterDropZone" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/CenterDropZone"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,71 +58,80 @@ offset_bottom = 42.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GridContainer" type="GridContainer" parent="Playground/Control/CenterContainer"]
+[node name="GridContainer" type="GridContainer" parent="Playground/CenterDropZone/CenterContainer"]
 layout_mode = 2
 columns = 3
 
-[node name="LeftPileContainer" type="MarginContainer" parent="Playground/Control/CenterContainer/GridContainer"]
+[node name="LeftPileContainer" type="MarginContainer" parent="Playground/CenterDropZone/CenterContainer/GridContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Playground/Control/CenterContainer/GridContainer/LeftPileContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="LeftPile" type="TextureRect" parent="Playground/Control/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer"]
+[node name="LeftPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 84)
 layout_mode = 2
-mouse_filter = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 7
 texture = ExtResource("3_ieajk")
 expand_mode = 1
+script = ExtResource("5_idm15")
 
-[node name="CenterPileContainer" type="MarginContainer" parent="Playground/Control/CenterContainer/GridContainer"]
+[node name="CenterPileContainer" type="MarginContainer" parent="Playground/CenterDropZone/CenterContainer/GridContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Playground/Control/CenterContainer/GridContainer/CenterPileContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="CenterPile" type="TextureRect" parent="Playground/Control/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2"]
+[node name="CenterPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 84)
 layout_mode = 2
-mouse_filter = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 7
 texture = ExtResource("3_ieajk")
 expand_mode = 1
+script = ExtResource("5_idm15")
 
-[node name="RightPileContainer" type="MarginContainer" parent="Playground/Control/CenterContainer/GridContainer"]
+[node name="RightPileContainer" type="MarginContainer" parent="Playground/CenterDropZone/CenterContainer/GridContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Playground/Control/CenterContainer/GridContainer/RightPileContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="RightPile" type="TextureRect" parent="Playground/Control/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3"]
+[node name="RightPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 84)
 layout_mode = 2
-mouse_filter = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 7
 texture = ExtResource("3_ieajk")
 expand_mode = 1
+script = ExtResource("5_idm15")
 
 [node name="PlayerOne" type="Control" parent="Playground"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+mouse_filter = 1
 
 [node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerOne"]
 layout_mode = 1
@@ -119,32 +147,19 @@ layout_mode = 2
 theme_override_constants/margin_bottom = 2
 
 [node name="PlayerOneCardZone" type="GridContainer" parent="Playground/PlayerOne/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+mouse_default_cursor_shape = 2
 columns = 4
 
-[node name="TextureRect" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
 [node name="PlayerTwo" type="Control" parent="Playground"]
+visible = false
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 grow_horizontal = 2
-grow_vertical = 2
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerTwo"]
 layout_mode = 1
@@ -159,6 +174,7 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_bottom = 2
 
 [node name="PlayerTwoCardZone" type="GridContainer" parent="Playground/PlayerTwo/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 4
 
@@ -179,12 +195,13 @@ layout_mode = 2
 texture = ExtResource("4_ocxvl")
 
 [node name="PlayerThree" type="Control" parent="Playground"]
+visible = false
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerThree"]
 layout_mode = 1
@@ -204,6 +221,7 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_bottom = 2
 
 [node name="PlayerThreeCardZone" type="GridContainer" parent="Playground/PlayerThree/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 4
 
@@ -224,12 +242,16 @@ layout_mode = 2
 texture = ExtResource("4_ocxvl")
 
 [node name="PlayerFour" type="Control" parent="Playground"]
+visible = false
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
+anchor_bottom = 0.5
+grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerFour"]
 layout_mode = 1
@@ -251,6 +273,7 @@ theme_override_constants/margin_top = 3
 theme_override_constants/margin_bottom = 2
 
 [node name="PlayerFourCardZone" type="GridContainer" parent="Playground/PlayerFour/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 4
 

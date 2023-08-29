@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ddrlh34q4l4se"
-path="res://.godot/imported/5_clubs.png-412958340af1d65b6579344a8b2fa571.ctex"
+uid="uid://cla7ra417r8pi"
+path="res://.godot/imported/naipes.png-93d52bb9fcf249cb693941af462d58c2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/cards/french/clubs/5_clubs.png"
-dest_files=["res://.godot/imported/5_clubs.png-412958340af1d65b6579344a8b2fa571.ctex"]
+source_file="res://assets/suit_symbols/naipes.png"
+dest_files=["res://.godot/imported/naipes.png-93d52bb9fcf249cb693941af462d58c2.ctex"]
 
 [params]
 
