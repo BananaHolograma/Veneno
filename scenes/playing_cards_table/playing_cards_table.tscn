@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b83imna4ns5qu"]
+[gd_scene load_steps=5 format=3 uid="uid://b83imna4ns5qu"]
 
 [ext_resource type="Script" path="res://scenes/playing_cards_table/playing_cards_table.gd" id="1_4nw15"]
 [ext_resource type="Script" path="res://scenes/deck/deck_manager.gd" id="2_2fhbp"]
 [ext_resource type="Texture2D" uid="uid://ddw8uwxynji0s" path="res://assets/backs/back_black_basic_white.png" id="3_ieajk"]
+[ext_resource type="Texture2D" uid="uid://cjqnt8bkviclm" path="res://assets/backs/back_blue_basic.png" id="4_ocxvl"]
 
 [node name="PlayingCardsTable" type="Node2D"]
 script = ExtResource("1_4nw15")
@@ -56,6 +57,7 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 84)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_ieajk")
 expand_mode = 1
 
@@ -73,6 +75,7 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 84)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_ieajk")
 expand_mode = 1
 
@@ -90,5 +93,179 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 84)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("3_ieajk")
 expand_mode = 1
+
+[node name="PlayerOne" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerOne"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerOne/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="PlayerOneCardZone" type="GridContainer" parent="Playground/PlayerOne/CenterContainer/MarginContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerOne/CenterContainer/MarginContainer/PlayerOneCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="PlayerTwo" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerTwo"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 87.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerTwo/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_bottom = 2
+
+[node name="PlayerTwoCardZone" type="GridContainer" parent="Playground/PlayerTwo/CenterContainer/MarginContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="PlayerThree" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerThree"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 91.0
+offset_top = -127.0
+offset_right = 343.0
+offset_bottom = -38.0
+grow_vertical = 2
+rotation = 1.5708
+
+[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerThree/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_bottom = 2
+
+[node name="PlayerThreeCardZone" type="GridContainer" parent="Playground/PlayerThree/CenterContainer/MarginContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="PlayerFour" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerFour"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -127.0
+offset_right = 252.0
+offset_bottom = -38.0
+grow_horizontal = 0
+grow_vertical = 2
+rotation = 1.5708
+
+[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerFour/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_bottom = 2
+
+[node name="PlayerFourCardZone" type="GridContainer" parent="Playground/PlayerFour/CenterContainer/MarginContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="TextureRect" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
+
+[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
+layout_mode = 2
+texture = ExtResource("4_ocxvl")
