@@ -11,11 +11,13 @@ func _get_drag_data(at_position):
 	preview_card_slot.size = playing_card.selected_texture.get_rect().size
 	
 	var preview = Control.new()
+	preview.name = playing_card.suit.capitalize() + playing_card.symbol_value.capitalize()
 	preview.add_child(preview_card_slot)
 	# Size to put the mouse in the center of the preview
 #	preview_card_slot.get_rect().size * -0.5
 	set_drag_preview(preview)
 	modulate.a = 0.2
+
 	return preview_card_slot
 	
 func _can_drop_data(at_position, data):
@@ -25,3 +27,4 @@ func _can_drop_data(at_position, data):
 func _drop_data(at_position, data):
 	texture = playing_card.symbol_texture.texture
 	modulate.a = 1.0
+	

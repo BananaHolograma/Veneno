@@ -50,8 +50,8 @@ func start_new_game(usernames: Array[String]):
 func change_turn_to(player: Player):
 	if not deck_in_game.is_empty():
 		active_player.pick_card(pick_random_card())
-		draw_card_slots(active_player)
-	
+
+	draw_card_slots(active_player)
 	active_player.is_player_turn = false
 	player.is_player_turn = true
 

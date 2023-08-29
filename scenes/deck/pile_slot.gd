@@ -59,6 +59,7 @@ func add_card_to_pile(card: PlayingCard) -> void:
 
 	if card.is_poison:
 		card_pile_texture.position.y += 21
+		card_pile_texture.self_modulate = Color.LIGHT_GREEN
 		
 	add_child(card_pile_texture)
 
@@ -67,7 +68,6 @@ func add_card_to_pile(card: PlayingCard) -> void:
 
 func add_points_to_pile(value: float) -> void:
 	current_points += value
-	
 	
 	
 func on_card_dropped(player, _card, _pile):
