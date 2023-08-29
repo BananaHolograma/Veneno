@@ -33,6 +33,7 @@ func collect_cards(cards: Array[PlayingCard]):
 	collected_cards.append_array(cards)
 	new_collected_cards.emit(cards)
 
+
 func _draw_card_slots():
 	for card in cards_in_hand:
 		var slot = TextureRect.new()

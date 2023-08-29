@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b83imna4ns5qu"]
+[gd_scene load_steps=4 format=3 uid="uid://b83imna4ns5qu"]
 
 [ext_resource type="Script" path="res://scenes/playing_cards_table/playing_cards_table.gd" id="1_4nw15"]
 [ext_resource type="Script" path="res://scenes/deck/deck_manager.gd" id="2_2fhbp"]
+[ext_resource type="Texture2D" uid="uid://ddw8uwxynji0s" path="res://assets/backs/back_black_basic_white.png" id="3_ieajk"]
 
 [node name="PlayingCardsTable" type="Node2D"]
 script = ExtResource("1_4nw15")
@@ -12,3 +13,82 @@ script = ExtResource("2_2fhbp")
 [node name="PlayersZone" type="Node2D" parent="."]
 
 [node name="Table" type="Node2D" parent="."]
+
+[node name="Playground" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -42.0
+offset_right = 109.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GridContainer" type="GridContainer" parent="Playground/Control/CenterContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="LeftPileContainer" type="MarginContainer" parent="Playground/Control/CenterContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Playground/Control/CenterContainer/GridContainer/LeftPileContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="LeftPile" type="TextureRect" parent="Playground/Control/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 84)
+layout_mode = 2
+texture = ExtResource("3_ieajk")
+expand_mode = 1
+
+[node name="CenterPileContainer" type="MarginContainer" parent="Playground/Control/CenterContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Playground/Control/CenterContainer/GridContainer/CenterPileContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="CenterPile" type="TextureRect" parent="Playground/Control/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 84)
+layout_mode = 2
+texture = ExtResource("3_ieajk")
+expand_mode = 1
+
+[node name="RightPileContainer" type="MarginContainer" parent="Playground/Control/CenterContainer/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_right = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Playground/Control/CenterContainer/GridContainer/RightPileContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="RightPile" type="TextureRect" parent="Playground/Control/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 84)
+layout_mode = 2
+texture = ExtResource("3_ieajk")
+expand_mode = 1

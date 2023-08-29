@@ -3,6 +3,10 @@ class_name PlayingCardsTable extends Node2D
 @onready var deck_manager = $DeckManager as DeckManager
 @onready var CURRENT_DECK: Dictionary = deck_manager.initialize_deck()
 @onready var players_zone: Node2D = $PlayersZone
+@onready var left_pile: TextureRect = %LeftPile
+@onready var center_pile: TextureRect = %CenterPile
+@onready var right_pile: TextureRect = %RightPile
+
 
 @export_range(0, 4, 1) var MAX_NUMBER_OF_PLAYERS: int = 4
 
@@ -18,7 +22,11 @@ func _ready():
 	shuffle_cards()
 	start_new_game(["manolito", "pepazo"])
 	
-
+	left_pile.modulate.a = 0.1
+	center_pile.modulate.a = 0.1
+	right_pile.modulate.a = 0.1
+	
+	
 func start_new_game(usernames: Array[String]):
 	for username in usernames.slice(0, MAX_NUMBER_OF_PLAYERS):
 		add_new_player_to_table(username)
