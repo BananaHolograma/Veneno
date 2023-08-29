@@ -10,7 +10,6 @@ var table_value: float
 var current_value: float
 var is_poison: bool = false
 
-var is_selected: bool = false
 
 func _enter_tree():
 	add_child(symbol_texture)

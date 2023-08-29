@@ -1,13 +1,11 @@
 class_name PlayingCardsTable extends Node
 
-@onready var deck_manager = $DeckManager as DeckManager
-@onready var CURRENT_DECK: Dictionary = deck_manager.initialize_deck()
-@onready var players_zone: Node2D = $PlayersZone
+@onready var CURRENT_DECK: Dictionary = GlobalDeckManager.initialize_deck()
 
 ## PLAYING CARD DROP ZONE
-@onready var left_pile: TextureRect = %LeftPile
-@onready var center_pile: TextureRect = %CenterPile
-@onready var right_pile: TextureRect = %RightPile
+@onready var left_pile: PileSlot = %LeftPile
+@onready var center_pile: PileSlot = %CenterPile
+@onready var right_pile: PileSlot = %RightPile
 
 ## PLAYERS CARDS HAND ZONE
 @onready var player_one_card_zone: GridContainer = %PlayerOneCardZone
@@ -32,20 +30,27 @@ var current_players: Dictionary = {}
 
 func _ready():
 	shuffle_cards()
-	start_new_game(["manolito", "pepazo"])
+	start_new_game(["ghost"])
 	
-	
+	left_pile.card_dropped.connect(on_card_dropped_in_pile)
+	center_pile.card_dropped.connect(on_card_dropped_in_pile)
+	right_pile.card_dropped.connect(on_card_dropped_in_pile)
+
+
 func start_new_game(usernames: Array[String]):
 	var player_position: int = 0
 	
 	for username in usernames.slice(0, MAX_NUMBER_OF_PLAYERS):
 		add_new_player_to_table(username, player_position)
 		player_position += 1
+		
+	active_player = current_players["ghost"]
 	
 	
 func change_turn_to(player: Player):
 	if not deck_in_game.is_empty():
-		active_player.pick_card(deck_in_game.pick_random())
+		active_player.pick_card(pick_random_card())
+		draw_card_slots(active_player)
 	
 	active_player.is_player_turn = false
 	player.is_player_turn = true
@@ -57,28 +62,39 @@ func shuffle_cards():
 			deck_in_game.append(card)
 			
 	deck_in_game.shuffle()
+	
 
+func pick_random_card():
+	var card = deck_in_game.pick_random()
+	
+	if card:
+		deck_in_game.erase(card)
+		
+	return card
 
 func add_new_player_to_table(username: String, player_position: int):
 	var new_player = player_scene.instantiate() as Player
 	new_player.username = username
 	new_player.name = username
+	new_player.table_position = player_position
 	var cards: Array[PlayingCard] = []
 	
 	for _i in MAX_CARDS_IN_HAND:
-		var random_card: PlayingCard = deck_in_game.pick_random()
+		var random_card: PlayingCard = pick_random_card()
 		cards.append(random_card)
-		deck_in_game.erase(random_card)
 	
 	new_player.cards_in_hand = cards
-	players_zone.add_child(new_player)
 	current_players[new_player.username] = new_player
 	
-	draw_card_slots(new_player, player_position)
+	draw_card_slots(new_player)
 
 
-func draw_card_slots(player: Player, player_position: int):
-	var player_card_zone = card_zone_positions[player_position]
+func draw_card_slots(player: Player):
+	var player_card_zone = card_zone_positions[player.table_position]
+	
+	for child in player_card_zone.get_children():
+		child.queue_free()
+		
 	for card in player.cards_in_hand:
 		var slot = CardSlot.new()
 		slot.name = card.suit.capitalize() + " " + card.symbol_value.capitalize()
@@ -89,3 +105,9 @@ func draw_card_slots(player: Player, player_position: int):
 		slot.player = player
 		
 		player_card_zone.add_child(slot)
+
+
+func on_card_dropped_in_pile(player, card, pile):
+	change_turn_to(current_players["ghost"])
+	
+	

@@ -1,12 +1,10 @@
 class_name Player extends Node2D
 
-@onready var cards_in_hand_layer: CanvasLayer = $CardsInHand
-
-
 signal turn_started
 signal turn_finished
 signal new_collected_cards(cards: Array[PlayingCard])
 
+var table_position: int = 0
 var cards_in_hand: Array[PlayingCard] = []
 var collected_cards: Array[PlayingCard] = []
 var username: String
