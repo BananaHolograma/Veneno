@@ -9,6 +9,9 @@ var symbol_value: String
 var table_value: float
 var current_value: float
 var is_poison: bool = false
+var card_name: String:
+	get:
+		return suit.capitalize() + symbol_value.capitalize()
 
 
 func _enter_tree():

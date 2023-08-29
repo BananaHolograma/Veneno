@@ -51,7 +51,7 @@ func suit_is_not_active(suit: String) -> bool:
 
 func add_card_to_pile(card: PlayingCard) -> void:
 	var card_pile_texture = TextureRect.new()
-	card_pile_texture.name = card.suit.capitalize() + card.symbol_value.capitalize()
+	card_pile_texture.name = card.card_name
 	card_pile_texture.texture = card.symbol_texture.texture
 	card_pile_texture.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 	card_pile_texture.size = card.symbol_texture.get_rect().size

@@ -41,7 +41,7 @@ func initialize_spanish_deck() -> Dictionary:
 	return {}
 
 
-func change_Depoison_suit(suit: String):
+func change_poison_suit(suit: String):
 	suit = suit.to_upper()
 	
 	if suit in BASE_FRENCH_DECK.keys():

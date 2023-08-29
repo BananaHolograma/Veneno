@@ -77,13 +77,8 @@ func add_new_player_to_table(username: String, player_position: int):
 	new_player.username = username
 	new_player.name = username
 	new_player.table_position = player_position
-	var cards: Array[PlayingCard] = []
-	
-	for _i in MAX_CARDS_IN_HAND:
-		var random_card: PlayingCard = pick_random_card()
-		cards.append(random_card)
-	
-	new_player.cards_in_hand = cards
+
+	new_player.cards_in_hand = deal_cards(new_player)
 	current_players[new_player.username] = new_player
 	
 	draw_card_slots(new_player)
@@ -97,7 +92,6 @@ func draw_card_slots(player: Player):
 		
 	for card in player.cards_in_hand:
 		var slot = CardSlot.new()
-		slot.name = card.suit.capitalize() + " " + card.symbol_value.capitalize()
 		slot.texture = card.symbol_texture.texture
 		slot.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 		slot.size = card.symbol_texture.get_rect().size
@@ -105,9 +99,22 @@ func draw_card_slots(player: Player):
 		slot.player = player
 		
 		player_card_zone.add_child(slot)
-
+		slot.name = "Hand" + card.suit.capitalize() + card.symbol_value.capitalize()
 
 func on_card_dropped_in_pile(player, card, pile):
 	change_turn_to(current_players["ghost"])
+	
+
+func deal_cards(player: Player) -> Array[PlayingCard]:
+	var cards: Array[PlayingCard] = []
+	
+	# Edge case when all the cards in the first deal are poison
+	while cards.is_empty() or cards.filter(func(card): return card.is_poison).size() == cards.size():
+		deck_in_game.append_array(cards)
+		
+		for _i in MAX_CARDS_IN_HAND:
+			cards.append(pick_random_card())
+			
+	return cards
 	
 	
