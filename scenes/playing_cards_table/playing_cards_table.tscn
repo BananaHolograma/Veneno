@@ -61,6 +61,32 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 columns = 4
 
+[node name="PlayerTwo" type="Control" parent="Playground"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+mouse_filter = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerTwo"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_bottom = 2.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerTwo/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="PlayerTwoCardZone" type="GridContainer" parent="Playground/PlayerTwo/CenterContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_default_cursor_shape = 2
+columns = 4
+
 [node name="DeckPlace" type="Marker2D" parent="Playground" groups=["deck"]]
 z_index = 4
 position = Vector2(174, 180)

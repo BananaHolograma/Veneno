@@ -4,6 +4,7 @@ signal turn_started
 signal turn_finished
 signal new_collected_cards(cards: Array[PlayingCard])
 
+var is_human: bool = true
 var table_position: int = 0
 var cards_in_hand: Array[PlayingCard] = []
 var collected_cards: Array[PlayingCard] = []

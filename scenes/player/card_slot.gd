@@ -14,22 +14,23 @@ func _notification(what):
 
 
 func _get_drag_data(at_position):
-	z_index = 10
-	var preview_card_slot = duplicate()
-	preview_card_slot.texture = playing_card.selected_texture.texture
-	preview_card_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	preview_card_slot.size = playing_card.selected_texture.get_rect().size
-	
-	var preview = Control.new()
-	preview.name = playing_card.card_name
-	preview.add_child(preview_card_slot)
-	preview.tree_exited.connect(on_preview_finished)
-	# Size to put the mouse in the center of the preview
-#	preview_card_slot.get_rect().size * -0.5
-	set_drag_preview(preview)
-	modulate.a = 0.2
+	if player.is_human:
+		z_index = 10
+		var preview_card_slot = duplicate()
+		preview_card_slot.texture = playing_card.selected_texture.texture
+		preview_card_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		preview_card_slot.size = playing_card.selected_texture.get_rect().size
+		
+		var preview = Control.new()
+		preview.name = playing_card.card_name
+		preview.add_child(preview_card_slot)
+		preview.tree_exited.connect(on_preview_finished)
+		# Size to put the mouse in the center of the preview
+	#	preview_card_slot.get_rect().size * -0.5
+		set_drag_preview(preview)
+		modulate.a = 0.2
 
-	return preview_card_slot
+		return preview_card_slot
 
 
 func _can_drop_data(at_position, data):
@@ -42,8 +43,9 @@ func _drop_data(at_position, data):
 
 
 func hover_animation(final_position: float):
-	var tween = create_tween()
-	tween.tween_property(self, "position:y", final_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	if player.is_human:
+		var tween = create_tween()
+		tween.tween_property(self, "position:y", final_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 
 func on_preview_finished():
