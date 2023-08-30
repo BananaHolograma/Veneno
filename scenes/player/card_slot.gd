@@ -4,7 +4,17 @@ class_name CardSlot extends TextureRect
 @export var playing_card: PlayingCard
 
 
+func _notification(what):
+	if is_inside_tree():
+		match(what):
+			NOTIFICATION_MOUSE_ENTER:
+				hover_animation(-20.0)
+			NOTIFICATION_MOUSE_EXIT:
+				hover_animation(0.0)
+
+
 func _get_drag_data(at_position):
+	z_index = 10
 	var preview_card_slot = duplicate()
 	preview_card_slot.texture = playing_card.selected_texture.texture
 	preview_card_slot.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -29,6 +39,11 @@ func _can_drop_data(at_position, data):
 func _drop_data(at_position, data):
 	texture = playing_card.symbol_texture.texture
 	modulate.a = 1.0
+
+
+func hover_animation(final_position: float):
+	var tween = create_tween()
+	tween.tween_property(self, "position:y", final_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
 
 func on_preview_finished():

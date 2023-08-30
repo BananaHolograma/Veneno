@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://lsn62h1o0h5h"]
+
+[ext_resource type="Texture2D" uid="uid://ddw8uwxynji0s" path="res://assets/backs/back_black_basic_white.png" id="1_4vn3v"]
+[ext_resource type="Script" path="res://scenes/playing_cards_table/deck_placeholder.gd" id="1_c6n50"]
+
+[node name="DeckPlaceholder" type="Node2D"]
+script = ExtResource("1_c6n50")
+
+[node name="OneCard" type="Sprite2D" parent="."]
+texture = ExtResource("1_4vn3v")
+
+[node name="Half" type="Sprite2D" parent="."]
+position = Vector2(3, 0)
+texture = ExtResource("1_4vn3v")
+
+[node name="Full" type="Sprite2D" parent="."]
+position = Vector2(6, 0)
+texture = ExtResource("1_4vn3v")
+
+[node name="CardTexturePlaceholder" type="Sprite2D" parent="."]

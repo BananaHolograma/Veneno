@@ -13,13 +13,7 @@ const GROUP_NAME = "piles"
 @onready var points_label: Label = $"../InfoMarker/PointsLabel"
 @onready var poison_points_label: Label = $"../InfoMarker/PoisonPointsLabel"
 
-const suit_symbols: Dictionary = {
-	"hearts": preload("res://scenes/deck/suit_symbols/heart_symbol.tscn"),
-	"clubs": preload("res://scenes/deck/suit_symbols/club_symbol.tscn"),
-	"spades": preload("res://scenes/deck/suit_symbols/spade_symbol.tscn"),
-	"diamonds": preload("res://scenes/deck/suit_symbols/diamond_symbol.tscn")
-}
-
+const suit_symbol_scene: PackedScene = preload("res://scenes/deck/suit_symbols/suit_symbol.tscn")
 
 func _ready():
 	modulate.a = 1.0
@@ -91,7 +85,8 @@ func add_points_to_pile(card: PlayingCard) -> void:
 	
 
 func show_suit_symbol(suit):
-	var suit_symbol = suit_symbols[suit].instantiate()
+	var suit_symbol = suit_symbol_scene.instantiate() as SuitSymbol
+	suit_symbol.current_suit = suit
 	current_suit = suit
 	info_marker.add_child(suit_symbol)
 	self_modulate.a = 0.0
@@ -100,7 +95,7 @@ func show_suit_symbol(suit):
 func clean_info_marker():
 	if current_suit.is_empty():
 		for child in info_marker.get_children():
-			if child is Sprite2D:
+			if child is SuitSymbol:
 				child.queue_free()
 				
 		points_label.text = ""

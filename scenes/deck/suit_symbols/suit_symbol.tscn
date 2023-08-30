@@ -1,0 +1,141 @@
+[gd_scene load_steps=6 format=3 uid="uid://i3xxxkm7jioh"]
+
+[ext_resource type="Script" path="res://scenes/deck/suit_symbols/suit_symbol.gd" id="1_37iox"]
+[ext_resource type="Texture2D" uid="uid://cla7ra417r8pi" path="res://assets/suit_symbols/naipes.png" id="1_bx1x7"]
+
+[sub_resource type="Animation" id="Animation_xwn2s"]
+resource_name = "bounce"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClubSymbol:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.799996, 0.999996),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, -2), Vector2(0, -2.5), Vector2(0, -1.5), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpadeSymbol:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, -2), Vector2(0, -2.5), Vector2(0, -1.5), Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DiamondSymbol:position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, -2), Vector2(0, -2.5), Vector2(0, -1.5), Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HeartSymbol:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, -2), Vector2(0, -2.5), Vector2(0, -1.5), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wtmqp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ClubSymbol:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpadeSymbol:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DiamondSymbol:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HeartSymbol:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm5c2"]
+_data = {
+"RESET": SubResource("Animation_wtmqp"),
+"bounce": SubResource("Animation_xwn2s")
+}
+
+[node name="SuitSymbol" type="Node2D"]
+script = ExtResource("1_37iox")
+
+[node name="HeartSymbol" type="Sprite2D" parent="."]
+texture = ExtResource("1_bx1x7")
+region_enabled = true
+region_rect = Rect2(208, 144, 16, 16)
+
+[node name="DiamondSymbol" type="Sprite2D" parent="."]
+texture = ExtResource("1_bx1x7")
+region_enabled = true
+region_rect = Rect2(192, 144, 16, 16)
+
+[node name="SpadeSymbol" type="Sprite2D" parent="."]
+texture = ExtResource("1_bx1x7")
+region_enabled = true
+region_rect = Rect2(224, 144, 16, 16)
+
+[node name="ClubSymbol" type="Sprite2D" parent="."]
+texture = ExtResource("1_bx1x7")
+region_enabled = true
+region_rect = Rect2(240, 144, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mm5c2")
+}

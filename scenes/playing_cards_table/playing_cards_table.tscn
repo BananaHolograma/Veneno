@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b83imna4ns5qu"]
+[gd_scene load_steps=4 format=3 uid="uid://b83imna4ns5qu"]
 
 [ext_resource type="Script" path="res://scenes/playing_cards_table/playing_cards_table.gd" id="1_4nw15"]
 [ext_resource type="PackedScene" uid="uid://d2h45wo1k6dwo" path="res://scenes/playing_cards_table/center_drop_zone.tscn" id="3_5y7pu"]
-[ext_resource type="Texture2D" uid="uid://cjqnt8bkviclm" path="res://assets/backs/back_blue_basic.png" id="4_ocxvl"]
 [ext_resource type="Texture2D" uid="uid://c4mr6uppujmcq" path="res://assets/background/poker_table_green.jpg" id="5_y2rfo"]
 
 [node name="PlayingCardsTable" type="Node"]
@@ -11,10 +10,13 @@ script = ExtResource("1_4nw15")
 [node name="Playground" type="CanvasLayer" parent="."]
 
 [node name="Background" type="Control" parent="Playground"]
+show_behind_parent = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
@@ -59,143 +61,6 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 columns = 4
 
-[node name="PlayerTwo" type="Control" parent="Playground"]
-visible = false
-layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-grow_horizontal = 2
-mouse_filter = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerTwo"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 87.0
-grow_horizontal = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerTwo/CenterContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_bottom = 2
-
-[node name="PlayerTwoCardZone" type="GridContainer" parent="Playground/PlayerTwo/CenterContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 4
-
-[node name="TextureRect" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="PlayerThree" type="Control" parent="Playground"]
-visible = false
-layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerThree"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 91.0
-offset_top = -127.0
-offset_right = 343.0
-offset_bottom = -38.0
-grow_vertical = 2
-rotation = 1.5708
-
-[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerThree/CenterContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_bottom = 2
-
-[node name="PlayerThreeCardZone" type="GridContainer" parent="Playground/PlayerThree/CenterContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 4
-
-[node name="TextureRect" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="PlayerFour" type="Control" parent="Playground"]
-visible = false
-layout_mode = 3
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 0
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="Playground/PlayerFour"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -127.0
-offset_right = 252.0
-offset_bottom = -38.0
-grow_horizontal = 0
-grow_vertical = 2
-rotation = 1.5708
-
-[node name="MarginContainer" type="MarginContainer" parent="Playground/PlayerFour/CenterContainer"]
-layout_mode = 2
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_bottom = 2
-
-[node name="PlayerFourCardZone" type="GridContainer" parent="Playground/PlayerFour/CenterContainer/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 4
-
-[node name="TextureRect" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect2" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect3" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
-
-[node name="TextureRect4" type="TextureRect" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
-layout_mode = 2
-texture = ExtResource("4_ocxvl")
+[node name="DeckPlace" type="Marker2D" parent="Playground" groups=["deck"]]
+z_index = 4
+position = Vector2(174, 180)

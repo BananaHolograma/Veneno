@@ -18,15 +18,14 @@ var base_french_card_path: String = "res://assets/cards/french/{suit}/{value}.pn
 var back_texture = load("res://assets/backs/back_black_basic_white.png")
 
 
-func initialize_deck(type: TYPES_OF_DECK = TYPES_OF_DECK.FRENCH) -> Dictionary:
+func initialize_deck(type: TYPES_OF_DECK = TYPES_OF_DECK.FRENCH) -> Array[PlayingCard]:
 	match(type):
 		TYPES_OF_DECK.FRENCH:
-			return initialize_french_deck()
-			
+			return prepare_deck(initialize_french_deck())
 		TYPES_OF_DECK.SPANISH:
-			return initialize_spanish_deck()
+			return prepare_deck(initialize_spanish_deck())
 	
-	return {}
+	return []
 		
 		
 func initialize_french_deck() -> Dictionary:
@@ -39,6 +38,18 @@ func initialize_french_deck() -> Dictionary:
 
 func initialize_spanish_deck() -> Dictionary:
 	return {}
+
+
+func prepare_deck(deck: Dictionary) -> Array[PlayingCard]:
+	var deck_prepared: Array[PlayingCard] = []
+	
+	for suit_cards in deck.values():
+		for card in suit_cards.values():
+			deck_prepared.append(card)
+		
+	deck_prepared.shuffle()
+	
+	return deck_prepared
 
 
 func change_poison_suit(suit: String):
