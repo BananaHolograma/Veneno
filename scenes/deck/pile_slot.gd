@@ -1,6 +1,5 @@
 class_name PileSlot extends TextureRect
 
-signal card_dropped(player: Player, card: PlayingCard, pile: PileSlot)
 signal pile_collected(player: Player, pile: PileSlot)
 
 @onready var current_suit: String
@@ -28,8 +27,7 @@ func _ready():
 	
 	if not is_in_group(GROUP_NAME):
 		add_to_group(GROUP_NAME)
-		
-	card_dropped.connect(on_card_dropped)
+	
 	
 	if points_label and poison_points_label:
 		points_label.text = ""
@@ -48,10 +46,11 @@ func _drop_data(at_position, data):
 	
 	add_points_to_pile(dropped_card)
 	add_card_to_pile(dropped_card)
-
-	data.player.cards_in_hand.erase(dropped_card)
-	card_dropped.emit(data.player, dropped_card, self)
+	check_points(data.player)
 	
+	data.player.cards_in_hand.erase(dropped_card)
+	
+	GlobalGameEvents.emit_card_dropped_in_pile(data.player, dropped_card, self)
 
 func card_can_be_dropped_in_this_pile(card: PlayingCard) -> bool:	
 	return card.is_poison and not current_suit.is_empty() or \
@@ -108,7 +107,7 @@ func clean_info_marker():
 		poison_points_label.text = ""
 	
 
-func on_card_dropped(player, _card, _pile):
+func check_points(player):
 	if current_points >= 13:
 		pile_collected.emit(player, duplicate())
 		cards_in_pile.clear()

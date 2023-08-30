@@ -32,9 +32,7 @@ func _ready():
 	shuffle_cards()
 	start_new_game(["ghost"])
 	
-	left_pile.card_dropped.connect(on_card_dropped_in_pile)
-	center_pile.card_dropped.connect(on_card_dropped_in_pile)
-	right_pile.card_dropped.connect(on_card_dropped_in_pile)
+	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
 
 
 func start_new_game(usernames: Array[String]):
