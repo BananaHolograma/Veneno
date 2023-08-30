@@ -13,6 +13,7 @@ var card_name: String:
 	get:
 		return suit.capitalize() + symbol_value.capitalize()
 
+var dealed: bool = false
 
 func _enter_tree():
 	add_child(symbol_texture)

@@ -75,30 +75,37 @@ func add_new_player_to_table(username: String, player_position: int):
 func draw_card_slots(player: Player):
 	var player_card_zone = card_zone_positions[player.table_position]
 
-	for child in player_card_zone.get_children():
-		child.queue_free()
-	
 	var original_global_position = player_card_zone.global_position
 	var card_slots: Array[CardSlot] = []
 	
 	for card in player.cards_in_hand:
-		var slot = CardSlot.new()
-		slot.name = "Hand" + card.suit.capitalize() + card.symbol_value.capitalize()
-		slot.texture = card.symbol_texture.texture
-		slot.expand_mode = TextureRect.EXPAND_KEEP_SIZE
-		slot.size = card.symbol_texture.get_rect().size
-		slot.playing_card = card
-		slot.player = player
-		slot.visible = false
-		
-		player_card_zone.add_child(slot)
-		
-		card_slots.append(slot)
+		if not card.dealed:
+			var slot = CardSlot.new()
+			slot.name = "Hand" + card.suit.capitalize() + card.symbol_value.capitalize()
+			slot.texture = card.symbol_texture.texture
+			slot.expand_mode = TextureRect.EXPAND_KEEP_SIZE
+			slot.size = card.symbol_texture.get_rect().size
+			slot.playing_card = card
+			slot.player = player
+			slot.visible = false
+			
+			player_card_zone.add_child(slot)
+			
+			card_slots.append(slot)
+			card.dealed = true
 		
 	current_deck.run_deal_animation(card_slots, original_global_position)
 
 
 func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
+	var player_card_zone = card_zone_positions[player.table_position]
+
+	for slot in player_card_zone.get_children():
+		if slot.playing_card.card_name == card.card_name:
+			slot.queue_free()
+			break
+		
+		
 	change_turn_to(current_players["ghost"])
 
 
