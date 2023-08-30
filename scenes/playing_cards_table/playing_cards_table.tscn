@@ -65,6 +65,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
+[node name="InfoMarker" type="Marker2D" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer"]
+position = Vector2(29, -28)
+
 [node name="LeftPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer" groups=["piles"]]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.2)
@@ -86,6 +89,9 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
+[node name="InfoMarker" type="Marker2D" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2"]
+position = Vector2(30, -28)
+
 [node name="CenterPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2" groups=["piles"]]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.2)
@@ -106,6 +112,9 @@ theme_override_constants/margin_right = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+
+[node name="InfoMarker" type="Marker2D" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3"]
+position = Vector2(30, -28)
 
 [node name="RightPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3" groups=["piles"]]
 unique_name_in_owner = true

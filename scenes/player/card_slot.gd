@@ -20,7 +20,8 @@ func _get_drag_data(at_position):
 	modulate.a = 0.2
 
 	return preview_card_slot
-	
+
+
 func _can_drop_data(at_position, data):
 	return data is CardSlot and data.playing_card == playing_card and data.player == player
 	
@@ -28,6 +29,7 @@ func _can_drop_data(at_position, data):
 func _drop_data(at_position, data):
 	texture = playing_card.symbol_texture.texture
 	modulate.a = 1.0
-	
+
+
 func on_preview_finished():
 	modulate.a = 1.0

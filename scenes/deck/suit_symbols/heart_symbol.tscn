@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctwca3s0jp222"]
+
+[ext_resource type="Texture2D" uid="uid://cla7ra417r8pi" path="res://assets/suit_symbols/naipes.png" id="1_ugxtk"]
+
+[node name="HeartSymbol" type="Sprite2D"]
+position = Vector2(0, -1)
+texture = ExtResource("1_ugxtk")
+offset = Vector2(0, 1)
+region_enabled = true
+region_rect = Rect2(208, 144, 16, 16)

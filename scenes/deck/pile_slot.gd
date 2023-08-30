@@ -9,6 +9,16 @@ signal pile_collected(player: Player, pile: PileSlot)
 
 const GROUP_NAME = "piles"
 
+@onready var info_marker: Marker2D = $"../InfoMarker"
+
+const suit_symbols: Dictionary = {
+	"hearts": preload("res://scenes/deck/suit_symbols/heart_symbol.tscn"),
+	"clubs": preload("res://scenes/deck/suit_symbols/club_symbol.tscn"),
+	"spades": preload("res://scenes/deck/suit_symbols/spade_symbol.tscn"),
+	"diamonds": preload("res://scenes/deck/suit_symbols/diamond_symbol.tscn")
+}
+
+
 func _ready():
 	modulate.a = 1.0
 	self_modulate.a = 0.2
@@ -27,8 +37,7 @@ func _drop_data(at_position, data):
 	var dropped_card = data.playing_card as PlayingCard
 	
 	if current_suit.is_empty() and not dropped_card.is_poison:
-		current_suit = dropped_card.suit
-		self_modulate.a = 0.0
+		show_suit_symbol(dropped_card.suit)
 	
 	add_points_to_pile(dropped_card.current_value)
 	add_card_to_pile(dropped_card)
@@ -69,7 +78,15 @@ func add_card_to_pile(card: PlayingCard) -> void:
 func add_points_to_pile(value: float) -> void:
 	current_points += value
 	
-	
+
+func show_suit_symbol(suit):
+	var suit_symbol = suit_symbols[suit].instantiate()
+	current_suit = suit
+	get_parent().add_child(suit_symbol)
+	suit_symbol.global_position = info_marker.global_position
+	self_modulate.a = 0.0
+
+		
 func on_card_dropped(player, _card, _pile):
 	if current_points >= 13:
 		pile_collected.emit(player, duplicate())
