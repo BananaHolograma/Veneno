@@ -6,8 +6,7 @@ var deck_placeholder_scene = preload("res://scenes/playing_cards_table/deck_plac
 #
 ### PLAYERS CARDS HAND ZONE
 @onready var player_one_card_zone: GridContainer = %PlayerOneCardZone
-
-@onready var card_zone_positions: Array[GridContainer] = [player_one_card_zone]
+var card_zone_positions: Dictionary = {}
 
 @export_range(0, 4, 1) var MAX_NUMBER_OF_PLAYERS: int = 4
 
@@ -22,7 +21,14 @@ var current_players: Dictionary = {}
 var current_deck: DeckPlaceholder
 #
 func _ready():
+	# Temporary for debug purposes, needs to be handled dinamically
+	card_zone_positions["ghost"] = {
+		"zone": player_one_card_zone, 
+		"deal_position": player_one_card_zone.global_position
+	}
+	
 	start_new_game(["ghost"])
+
 
 	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
 
@@ -73,9 +79,9 @@ func add_new_player_to_table(username: String, player_position: int):
 #
 #
 func draw_card_slots(player: Player):
-	var player_card_zone = card_zone_positions[player.table_position]
+	var player_card_zone = card_zone_positions[player.username]
 
-	var original_global_position = player_card_zone.global_position
+	var original_global_position = player_card_zone["deal_position"]
 	var card_slots: Array[CardSlot] = []
 	
 	for card in player.cards_in_hand:
@@ -89,7 +95,7 @@ func draw_card_slots(player: Player):
 			slot.player = player
 			slot.visible = false
 			
-			player_card_zone.add_child(slot)
+			player_card_zone["zone"].add_child(slot)
 			
 			card_slots.append(slot)
 			card.dealed = true
@@ -98,9 +104,9 @@ func draw_card_slots(player: Player):
 
 
 func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
-	var player_card_zone = card_zone_positions[player.table_position]
+	var player_card_zone = card_zone_positions[player.username]
 
-	for slot in player_card_zone.get_children():
+	for slot in player_card_zone["zone"].get_children():
 		if slot.playing_card.card_name == card.card_name:
 			slot.queue_free()
 			break
