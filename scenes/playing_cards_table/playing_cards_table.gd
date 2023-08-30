@@ -23,9 +23,9 @@ var current_deck: DeckPlaceholder
 #
 func _ready():
 	start_new_game(["ghost"])
-#
-#	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
-#
+
+	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
+
 
 
 func start_new_game(usernames: Array[String]):
@@ -41,20 +41,17 @@ func initialise_deck_of_cards_on_table():
 		deck_place.add_child(deck_placeholder)
 		current_deck = deck_placeholder
 
-#
-#func change_turn_to(player: Player):
-#	var new_random_card = pick_random_card()
-#
-#	if not deck_in_game.is_empty() and new_random_card:
-#		active_player.pick_card(new_random_card)
-#
-#	draw_card_slots(active_player)
-#	GlobalGameEvents.emit_picked_card_from_deck(active_player, new_random_card)
-#
-#	active_player.is_player_turn = false
-#	player.is_player_turn = true
-#
-#
+
+func change_turn_to(player: Player):
+	var new_card = current_deck.pick_card_from_deck(player)
+		
+	if new_card is PlayingCard:
+		draw_card_slots(active_player)
+
+	active_player.is_player_turn = false
+	player.is_player_turn = true
+
+
 
 func add_new_players_to_table(usernames: Array[String]):
 	var player_position: int = 0
@@ -100,8 +97,9 @@ func draw_card_slots(player: Player):
 		
 	current_deck.run_deal_animation(card_slots, original_global_position)
 
-#func on_card_dropped_in_pile(player, card, pile):
-#	change_turn_to(current_players["ghost"])
-#
-#
+
+func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
+	change_turn_to(current_players["ghost"])
+
+
 

@@ -1,8 +1,5 @@
 class_name DeckPlaceholder extends Node2D
 
-signal picked_card(player: Player, card: PlayingCard)
-signal emptied_deck(player: Player)
-
 @onready var one_card: Sprite2D = $OneCard
 @onready var half: Sprite2D = $Half
 @onready var full: Sprite2D = $Full
@@ -29,17 +26,22 @@ func deal_initial_cards(player: Player, amount: int) -> Array[PlayingCard]:
 
 
 func pick_card_from_deck(player: Player):
+	if CURRENT_DECK.is_empty():
+		return null
+	
 	var card = CURRENT_DECK.pick_random()
+	
 	if card:
 		CURRENT_DECK.erase(card)
+		player.cards_in_hand.append(card)
 
 	update_sprite_based_on_deck_cards()
 	
 	if CURRENT_DECK.is_empty():
-		emptied_deck.emit(player)
-		
-	picked_card.emit(player, card)
+		GlobalGameEvents.emit_emptied_deck(player)
 	
+	GlobalGameEvents.emit_picked_card_from_deck(player, card)
+
 	return card
 
 
