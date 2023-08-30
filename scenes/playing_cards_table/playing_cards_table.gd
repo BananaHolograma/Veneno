@@ -101,6 +101,7 @@ func draw_card_slots(player: Player):
 		player_card_zone.add_child(slot)
 		slot.name = "Hand" + card.suit.capitalize() + card.symbol_value.capitalize()
 
+
 func on_card_dropped_in_pile(player, card, pile):
 	change_turn_to(current_players["ghost"])
 	

@@ -68,6 +68,24 @@ size_flags_vertical = 0
 [node name="InfoMarker" type="Marker2D" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer"]
 position = Vector2(29, -28)
 
+[node name="PointsLabel" type="Label" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer/InfoMarker"]
+offset_left = -37.0
+offset_top = 14.0
+offset_right = 3.0
+offset_bottom = 30.0
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PoisonPointsLabel" type="Label" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer/InfoMarker"]
+self_modulate = Color(0.517647, 0.878431, 0.235294, 1)
+offset_top = 14.0
+offset_right = 40.0
+offset_bottom = 30.0
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="LeftPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/LeftPileContainer/VBoxContainer" groups=["piles"]]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.2)
@@ -92,6 +110,25 @@ size_flags_vertical = 0
 [node name="InfoMarker" type="Marker2D" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2"]
 position = Vector2(30, -28)
 
+[node name="PointsLabel" type="Label" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2/InfoMarker"]
+offset_left = -39.0
+offset_top = 14.0
+offset_right = 1.0
+offset_bottom = 30.0
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PoisonPointsLabel" type="Label" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2/InfoMarker"]
+self_modulate = Color(0.517647, 0.878431, 0.235294, 1)
+offset_left = -1.0
+offset_top = 14.0
+offset_right = 39.0
+offset_bottom = 30.0
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CenterPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2" groups=["piles"]]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.2)
@@ -115,6 +152,25 @@ size_flags_vertical = 0
 
 [node name="InfoMarker" type="Marker2D" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3"]
 position = Vector2(30, -28)
+
+[node name="PointsLabel" type="Label" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3/InfoMarker"]
+offset_left = -39.0
+offset_top = 14.0
+offset_right = 1.0
+offset_bottom = 30.0
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PoisonPointsLabel" type="Label" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3/InfoMarker"]
+self_modulate = Color(0.517647, 0.878431, 0.235294, 1)
+offset_left = -1.0
+offset_top = 14.0
+offset_right = 39.0
+offset_bottom = 30.0
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RightPile" type="TextureRect" parent="Playground/CenterDropZone/CenterContainer/GridContainer/RightPileContainer/VBoxContainer3" groups=["piles"]]
 unique_name_in_owner = true

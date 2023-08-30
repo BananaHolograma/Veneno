@@ -5,11 +5,14 @@ signal pile_collected(player: Player, pile: PileSlot)
 
 @onready var current_suit: String
 @onready var current_points: float = 0.0
+@onready var current_poison_points: float = 0.0
 @onready var cards_in_pile: Array[PlayingCard] = []
 
 const GROUP_NAME = "piles"
 
 @onready var info_marker: Marker2D = $"../InfoMarker"
+@onready var points_label: Label = $"../InfoMarker/PointsLabel"
+@onready var poison_points_label: Label = $"../InfoMarker/PoisonPointsLabel"
 
 const suit_symbols: Dictionary = {
 	"hearts": preload("res://scenes/deck/suit_symbols/heart_symbol.tscn"),
@@ -28,7 +31,11 @@ func _ready():
 		
 	card_dropped.connect(on_card_dropped)
 	
-	
+	if points_label and poison_points_label:
+		points_label.text = ""
+		poison_points_label.text = ""
+		
+		
 func _can_drop_data(_at_position, data):
 	return data.playing_card is PlayingCard and card_can_be_dropped_in_this_pile(data.playing_card)
 	
@@ -39,7 +46,7 @@ func _drop_data(at_position, data):
 	if current_suit.is_empty() and not dropped_card.is_poison:
 		show_suit_symbol(dropped_card.suit)
 	
-	add_points_to_pile(dropped_card.current_value)
+	add_points_to_pile(dropped_card)
 	add_card_to_pile(dropped_card)
 
 	data.player.cards_in_hand.erase(dropped_card)
@@ -75,24 +82,40 @@ func add_card_to_pile(card: PlayingCard) -> void:
 	cards_in_pile.append(card)
 
 
-func add_points_to_pile(value: float) -> void:
-	current_points += value
+func add_points_to_pile(card: PlayingCard) -> void:
+	current_points += card.current_value 
+	current_poison_points += card.current_value if card.is_poison else 0.0
+	
+	if current_points > 0:
+		points_label.text = str(current_points)
+		poison_points_label.text = str(current_poison_points)
 	
 
 func show_suit_symbol(suit):
 	var suit_symbol = suit_symbols[suit].instantiate()
 	current_suit = suit
-	get_parent().add_child(suit_symbol)
-	suit_symbol.global_position = info_marker.global_position
+	info_marker.add_child(suit_symbol)
 	self_modulate.a = 0.0
 
-		
+
+func clean_info_marker():
+	if current_suit.is_empty():
+		for child in info_marker.get_children():
+			if child is Sprite2D:
+				child.queue_free()
+				
+		points_label.text = ""
+		poison_points_label.text = ""
+	
+
 func on_card_dropped(player, _card, _pile):
 	if current_points >= 13:
 		pile_collected.emit(player, duplicate())
 		cards_in_pile.clear()
 		current_suit = ""
 		current_points = 0.0
+		current_poison_points = 0.0
+		clean_info_marker()
 		self_modulate.a = 0.2
 		
 		for child in get_children():
