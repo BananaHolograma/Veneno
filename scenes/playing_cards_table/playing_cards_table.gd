@@ -67,22 +67,43 @@ func execute_robot_movement(player: Player) -> void:
 		decision_tree["empty_piles"] = piles.filter(func(pile: PileSlot): return pile.current_suit.is_empty()) as Array[PileSlot]
 		
 		for pile in piles.filter(func (pile: PileSlot): return pile not in decision_tree["empty_piles"]):
-			decision_tree["piles_with_suit"][pile.current_suit] = {"cards_to_drop": [], "pile": pile}
+			decision_tree["piles_with_suit"][pile.current_suit] = { "pile": pile, "cards_to_drop": []}
 		
-
 		var normal_cards = player.normal_cards_in_hand() as Array[PlayingCard]
+		var poison_cards = player.poison_cards_in_hand() as Array[PlayingCard]
+		var allowed_suits_to_drop_cards: Array[String] = []
+		
 		for normal_card in normal_cards:
 			if decision_tree["piles_with_suit"].has(normal_card.suit):
 				decision_tree["piles_with_suit"][normal_card.suit]["cards_to_drop"].append(normal_card)
+				if not allowed_suits_to_drop_cards.has(normal_card.suit):
+					allowed_suits_to_drop_cards.append(normal_card.suit)
 		
-		var poison_cards = player.poison_cards_in_hand() as Array[PlayingCard]
-	
-		
+		# EMPTY TABLE
 		if decision_tree["empty_piles"].size() == piles.size():
 			var selected_pile = decision_tree["empty_piles"].pick_random() as PileSlot
 			selected_pile.drop_card_in_pile(player, normal_cards.pick_random())
-			return
-
+		# NOT ALLOWED SUITS IN HAND TO DROP IN TABLE, ONLY EMPTY PILES
+		elif allowed_suits_to_drop_cards.is_empty():
+			if decision_tree["empty_piles"].size() > 0:
+				var selected_pile = decision_tree["empty_piles"].pick_random() as PileSlot
+				selected_pile.drop_card_in_pile(player, normal_cards.pick_random())
+			else:
+				# ALLOWED PILES TO DROP SUIT CARDS AND POISON CARDS
+				if poison_cards.size() > 0:
+					var selected_pile = decision_tree["piles_with_suit"].values().pick_random() as PileSlot
+					selected_pile.drop_card_in_pile(player, poison_cards.pick_random())
+					return
+					
+				if normal_cards.size() > 0:
+					var allowed_piles_to_drop_cards = decision_tree["piles_with_suit"].values().filter(func(pile_data): return pile_data["cards_to_drop"].size() > 0)
+					var selected_pile = allowed_piles_to_drop_cards.pick_random()
+					
+					if selected_pile:
+						selected_pile["pile"].drop_card_in_pile(player, selected_pile["cards_to_drop"].pick_random())
+					
+			
+			
 
 
 func add_players_to_table(players: Array[Dictionary]):
