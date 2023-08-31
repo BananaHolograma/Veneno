@@ -33,21 +33,28 @@ func _can_drop_data(_at_position, data):
 	
 
 func _drop_data(at_position, data):
-	var dropped_card = data.playing_card as PlayingCard
-	
-	if current_suit.is_empty() and not dropped_card.is_poison:
-		show_suit_symbol(dropped_card.suit)
-	
-	add_points_to_pile(dropped_card)
-	add_card_to_pile(dropped_card)
-	check_points(data.player)
-	
-	data.player.cards_in_hand.erase(dropped_card)
-	
-	GlobalGameEvents.emit_card_dropped_in_pile(data.player, dropped_card, self)
+	drop_card_in_pile(data.player, data.playing_card)
 
-func card_can_be_dropped_in_this_pile(card: PlayingCard) -> bool:	
-	return card.is_poison and not current_suit.is_empty() or \
+
+func drop_card_in_pile(player: Player, card: PlayingCard):
+	if card_can_be_dropped_in_this_pile(card):	
+		if current_suit.is_empty() and not card.is_poison:
+			show_suit_symbol(card.suit)
+		
+		add_points_to_pile(card)
+		add_card_to_pile(card)
+		check_points(player)
+		
+		player.cards_in_hand.erase(card)
+		
+		GlobalGameEvents.emit_card_dropped_in_pile(player, card, self)
+			
+
+func card_can_be_dropped_in_this_pile(card: PlayingCard) -> bool:
+	var players = get_tree().get_nodes_in_group("players")
+	var players_have_cards_in_their_hand = players.filter(func(player: Player): return player.cards_in_hand.size() > 0).size() > 0
+	
+	return players_have_cards_in_their_hand	and card.is_poison and not current_suit.is_empty() or \
 		(not card.is_poison and current_suit.is_empty() and suit_is_not_active(card.suit)) \
 		or card.suit == current_suit
 
@@ -68,8 +75,9 @@ func add_card_to_pile(card: PlayingCard) -> void:
 
 	if card.is_poison:
 		card_pile_texture.position.y += 21
-		card_pile_texture.self_modulate = Color.LIGHT_GREEN
-		
+		var tween = create_tween()
+		tween.tween_property(card_pile_texture, "self_modulate", Color.LIGHT_GREEN, 0.35).from(Color.LIME_GREEN)
+
 	add_child(card_pile_texture)
 
 	cards_in_pile.append(card)
@@ -102,16 +110,17 @@ func clean_info_marker():
 		poison_points_label.text = ""
 	
 
-func check_points(player):
-	if current_points >= 13:
-		pile_collected.emit(player, duplicate())
-		cards_in_pile.clear()
-		current_suit = ""
-		current_points = 0.0
-		current_poison_points = 0.0
-		clean_info_marker()
-		self_modulate.a = 0.2
-		
-		for child in get_children():
-			child.queue_free()
-		
+func check_points(player: Player):
+	if current_points >= 13:	
+		player.collect_cards(cards_in_pile)
+		GlobalGameEvents.emit_pile_collected(player, cards_in_pile, self)
+		reset_pile()
+
+
+func reset_pile() -> void:
+	current_suit = ""
+	current_points = 0.0
+	current_poison_points = 0.0
+	cards_in_pile.clear()
+	self_modulate.a = 0.2
+	clean_info_marker()

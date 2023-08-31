@@ -14,7 +14,7 @@ func _notification(what):
 
 
 func _get_drag_data(at_position):
-	if player.is_human:
+	if player_can_interact():
 		z_index = 10
 		var preview_card_slot = duplicate()
 		preview_card_slot.texture = playing_card.selected_texture.texture
@@ -43,10 +43,13 @@ func _drop_data(at_position, data):
 
 
 func hover_animation(final_position: float):
-	if player.is_human:
+	if player_can_interact():
 		var tween = create_tween()
 		tween.tween_property(self, "position:y", final_position, 0.5).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
+
+func player_can_interact() -> bool:
+	return player.is_human
 
 func on_preview_finished():
 	modulate.a = 1.0
