@@ -7,10 +7,11 @@
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_qjmvl"]
 streams_count = 2
-stream_0/stream = ExtResource("3_w36rd")
-stream_0/weight = 1.2
-stream_1/stream = ExtResource("5_jh0hy")
-stream_1/weight = 1.1
+playback_mode = 1
+stream_0/stream = ExtResource("5_jh0hy")
+stream_0/weight = 1.1
+stream_1/stream = ExtResource("3_w36rd")
+stream_1/weight = 1.0
 
 [node name="DeckPlaceholder" type="Node2D"]
 script = ExtResource("1_c6n50")

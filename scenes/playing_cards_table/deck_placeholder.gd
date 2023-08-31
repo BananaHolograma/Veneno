@@ -50,8 +50,8 @@ func pick_card_from_deck(player: Player):
 func update_sprite_based_on_deck_cards():
 	var percentage = CURRENT_DECK.size() / 52.0
 	
-	full.visible = percentage >= 0.70
-	semi_full.visible = percentage >= 0.40
+	full.visible = percentage >= 0.45
+	semi_full.visible = percentage >= 0.2
 	half.visible = percentage >= 0.1
 	one_card.visible = CURRENT_DECK.size() == 1
 
@@ -65,15 +65,15 @@ func run_deal_animation(cards: Array[CardSlot], deal_position: Vector2):
 		var card = cards.back() as CardSlot
 		
 		if card.is_inside_tree():
+			audio_stream_player_2d.play()
 			deal_card_texture.texture = card.playing_card.back_texture.texture
 			var tween = create_tween()
 			tween.tween_property(deal_card_texture, "global_position", deal_position - card.get_rect().size, 0.45)\
 				.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
-		
+			
 			tween.tween_callback(_on_finished_deal_animation.bind(card, cards, deal_position))
 			audio_stream_player_2d.play()
 			
-
 
 func _on_finished_deal_animation(last_card: CardSlot, cards: Array[CardSlot], deal_position: Vector2):
 	last_card.visible = true
