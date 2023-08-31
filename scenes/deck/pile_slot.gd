@@ -10,9 +10,10 @@ const GROUP_NAME = "piles"
 @onready var info_marker: Marker2D = $"../InfoMarker"
 @onready var points_label: Label = $"../InfoMarker/PointsLabel"
 @onready var poison_points_label: Label = $"../InfoMarker/PoisonPointsLabel"
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../../../../../AudioStreamPlayer2D"
+
 
 const suit_symbol_scene: PackedScene = preload("res://scenes/deck/suit_symbols/suit_symbol.tscn")
-
 var actual_player: Player
 
 func _ready():
@@ -108,9 +109,12 @@ func add_card_to_pile(card: PlayingCard) -> void:
 		card_pile_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var tween = create_tween()
 		tween.tween_property(card_pile_texture, "self_modulate", Color.LIGHT_GREEN, 0.35).from(Color.LIME_GREEN)
-
+		
+		if audio_stream_player_2d:
+			audio_stream_player_2d.play()
+			
 	add_child(card_pile_texture)
-
+	
 	cards_in_pile.append(card)
 
 

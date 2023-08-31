@@ -5,6 +5,7 @@ class_name DeckPlaceholder extends Node2D
 @onready var semi_full: Sprite2D = $SemiFull
 @onready var full: Sprite2D = $Full
 @onready var deal_card_texture: Sprite2D = $DealCardTexture
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var CURRENT_DECK: Array[PlayingCard]
 
@@ -51,7 +52,7 @@ func update_sprite_based_on_deck_cards():
 	
 	full.visible = percentage >= 0.70
 	semi_full.visible = percentage >= 0.40
-	half.visible = percentage >= 0.25
+	half.visible = percentage >= 0.1
 	one_card.visible = CURRENT_DECK.size() == 1
 
 
@@ -70,6 +71,8 @@ func run_deal_animation(cards: Array[CardSlot], deal_position: Vector2):
 				.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		
 			tween.tween_callback(_on_finished_deal_animation.bind(card, cards, deal_position))
+			audio_stream_player_2d.play()
+			
 
 
 func _on_finished_deal_animation(last_card: CardSlot, cards: Array[CardSlot], deal_position: Vector2):

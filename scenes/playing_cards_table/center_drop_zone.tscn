@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://d2h45wo1k6dwo"]
+[gd_scene load_steps=4 format=3 uid="uid://d2h45wo1k6dwo"]
 
 [ext_resource type="Texture2D" uid="uid://ddw8uwxynji0s" path="res://assets/backs/back_black_basic_white.png" id="1_a82of"]
 [ext_resource type="Script" path="res://scenes/deck/pile_slot.gd" id="2_0tv6j"]
+[ext_resource type="AudioStream" uid="uid://cvpcfgt448su2" path="res://assets/sounds/poison/poison_release.wav" id="3_ek8lb"]
 
 [node name="CenterDropZone" type="Control"]
 layout_mode = 3
@@ -157,3 +158,6 @@ mouse_default_cursor_shape = 7
 texture = ExtResource("1_a82of")
 expand_mode = 1
 script = ExtResource("2_0tv6j")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ek8lb")

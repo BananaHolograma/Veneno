@@ -1,5 +1,8 @@
 class_name PlayingCard extends Node2D
 
+
+
+
 var symbol_texture: Sprite2D
 var selected_texture: Sprite2D
 var back_texture: Sprite2D
