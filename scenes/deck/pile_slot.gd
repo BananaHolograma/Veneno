@@ -1,6 +1,5 @@
 class_name PileSlot extends TextureRect
 
-
 @onready var current_suit: String
 @onready var current_points: float = 0.0
 @onready var current_poison_points: float = 0.0
@@ -13,6 +12,8 @@ const GROUP_NAME = "piles"
 @onready var poison_points_label: Label = $"../InfoMarker/PoisonPointsLabel"
 
 const suit_symbol_scene: PackedScene = preload("res://scenes/deck/suit_symbols/suit_symbol.tscn")
+
+var actual_player: Player
 
 func _ready():
 	modulate.a = 1.0
@@ -27,10 +28,13 @@ func _ready():
 		poison_points_label.text = ""
 	
 	GlobalGameEvents.pile_collected.connect(on_pile_collected)
+	GlobalGameEvents.turn_started.connect(on_turn_started)
 		
 		
 func _can_drop_data(_at_position, data):
-	return data.playing_card is PlayingCard and card_can_be_dropped_in_this_pile(data.playing_card)
+	return data.playing_card is PlayingCard \
+		and data.player == actual_player \
+		and card_can_be_dropped_in_this_pile(data.playing_card)
 	
 
 func _drop_data(at_position, data):
@@ -38,7 +42,7 @@ func _drop_data(at_position, data):
 
 
 func drop_card_in_pile(player: Player, card: PlayingCard):
-	if card_can_be_dropped_in_this_pile(card):	
+	if player == actual_player and card_can_be_dropped_in_this_pile(card):	
 		if current_suit.is_empty() and not card.is_poison:
 			show_suit_symbol(card.suit)
 		
@@ -128,6 +132,10 @@ func reset_pile() -> void:
 			child.queue_free()
 
 
-func on_pile_collected(player: Player, cards: Array[PlayingCard], pile: PileSlot):
+func on_pile_collected(player: Player, cards: Array[PlayingCard], pile: PileSlot) -> void:
 	player.collect_cards(cards_in_pile)
 	reset_pile()
+
+
+func on_turn_started(player: Player) -> void:
+	actual_player = player

@@ -18,8 +18,7 @@ func deal_initial_cards(player: Player, amount: int) -> Array[PlayingCard]:
 
 	# Edge case when all the cards in the first deal are poison
 	while cards.is_empty() or all_cards_are_poison(cards):
-		if CURRENT_DECK.size() < GlobalDeckManager.NUMBER_OF_FRENCH_CARDS:
-			CURRENT_DECK.append_array(cards)
+		CURRENT_DECK.append_array(cards)
 
 		for _i in amount:
 			cards.append(pick_card_from_deck(player))

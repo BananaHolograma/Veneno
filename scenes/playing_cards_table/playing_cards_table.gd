@@ -31,7 +31,7 @@ func _ready():
 		 {"username": "robot", "human": false},
 #		{"username": "robot2", "human": false},
 #		{"username": "robot3", "human": false},
-	],
+	] as Array[Dictionary],
 		"poison_suit": "hearts",
 		"rounds": 2
 	}
@@ -73,7 +73,6 @@ func add_players_to_table(players: Array[Dictionary]):
 	for player in players.slice(0, MAX_NUMBER_OF_PLAYERS):
 		var zone = card_zones[player_position]
 		player["table_position"] = player_position
-		
 		
 		card_zone_positions[player["username"]] = {
 			"zone": zone , 
@@ -117,7 +116,7 @@ func draw_card_slots(player: Player):
 			slot.size = card.symbol_texture.get_rect().size
 			slot.playing_card = card
 			slot.player = player
-			slot.visible = false
+			slot.visible = card.dealed
 			
 			player_card_zone["zone"].add_child(slot)
 			
