@@ -46,14 +46,33 @@ func drop_card_in_pile(player: Player, card: PlayingCard):
 		if current_suit.is_empty() and not card.is_poison:
 			show_suit_symbol(card.suit)
 		
-		add_points_to_pile(card)
-		add_card_to_pile(card)
-		check_points(player)
-		
-		player.cards_in_hand.erase(card)
-		
-		GlobalGameEvents.emit_card_dropped_in_pile(player, card, self)
-			
+		if not player.is_human:
+			player.card_zone["drop_card_texture"].visible = true
+			player.card_zone["drop_card_texture"].texture = card.symbol_texture.texture.duplicate()
+			var tween = create_tween()
+			tween.tween_property(player.card_zone["drop_card_texture"], "global_position", global_position, 1.0)\
+			.from(player.card_zone["drop_card_texture"].global_position + card.symbol_texture.get_rect().size)
+			tween.tween_callback(on_robot_dropped_card_animation_finished.bind(player, card))
+		else:
+			confirm_card_in_pile(player, card)
+
+
+func on_robot_dropped_card_animation_finished(player, card):
+	player.card_zone["drop_card_texture"].visible = false
+	player.card_zone["drop_card_texture"].texture = null
+	player.card_zone["drop_card_texture"].global_position = player.card_zone["zone"].global_position
+	confirm_card_in_pile(player, card)
+
+
+func confirm_card_in_pile(player: Player, card: PlayingCard):
+	add_points_to_pile(card)
+	add_card_to_pile(card)
+	check_points(player)
+
+	player.cards_in_hand.erase(card)
+
+	GlobalGameEvents.emit_card_dropped_in_pile(player, card, self)
+
 
 func card_can_be_dropped_in_this_pile(card: PlayingCard) -> bool:
 	var poison_allowed = card.is_poison and not current_suit.is_empty()
@@ -101,7 +120,6 @@ func show_suit_symbol(suit):
 	suit_symbol.current_suit = suit
 	current_suit = suit
 	info_marker.add_child(suit_symbol)
-	self_modulate.a = 0.0
 
 
 func clean_info_marker():
@@ -115,7 +133,7 @@ func clean_info_marker():
 	
 
 func check_points(player: Player):
-	if current_points >= 13:	
+	if current_points >= 13 and actual_player == player:	
 		GlobalGameEvents.emit_pile_collected(player, cards_in_pile, self)
 
 
@@ -133,8 +151,9 @@ func reset_pile() -> void:
 
 
 func on_pile_collected(player: Player, cards: Array[PlayingCard], pile: PileSlot) -> void:
-	player.collect_cards(cards_in_pile)
-	reset_pile()
+	if pile == self and player == actual_player:
+		player.collect_cards(cards_in_pile)
+		reset_pile()
 
 
 func on_turn_started(player: Player) -> void:

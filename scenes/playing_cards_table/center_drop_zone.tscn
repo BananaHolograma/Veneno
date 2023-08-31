@@ -77,15 +77,15 @@ layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="CenterContainer/GridContainer/CenterPileContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/GridContainer/CenterPileContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="InfoMarker" type="Marker2D" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2"]
+[node name="InfoMarker" type="Marker2D" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer"]
 position = Vector2(30, -28)
 
-[node name="PointsLabel" type="Label" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2/InfoMarker"]
+[node name="PointsLabel" type="Label" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer/InfoMarker"]
 offset_left = -39.0
 offset_top = 14.0
 offset_right = 1.0
@@ -94,7 +94,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PoisonPointsLabel" type="Label" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2/InfoMarker"]
+[node name="PoisonPointsLabel" type="Label" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer/InfoMarker"]
 self_modulate = Color(0.517647, 0.878431, 0.235294, 1)
 offset_left = -1.0
 offset_top = 14.0
@@ -104,7 +104,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CenterPile" type="TextureRect" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer2" groups=["piles"]]
+[node name="CenterPile" type="TextureRect" parent="CenterContainer/GridContainer/CenterPileContainer/VBoxContainer" groups=["piles"]]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.2)
 custom_minimum_size = Vector2(60, 84)
@@ -120,15 +120,15 @@ layout_mode = 2
 theme_override_constants/margin_left = 2
 theme_override_constants/margin_right = 2
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="CenterContainer/GridContainer/RightPileContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/GridContainer/RightPileContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="InfoMarker" type="Marker2D" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer3"]
+[node name="InfoMarker" type="Marker2D" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer"]
 position = Vector2(30, -28)
 
-[node name="PointsLabel" type="Label" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer3/InfoMarker"]
+[node name="PointsLabel" type="Label" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer/InfoMarker"]
 offset_left = -39.0
 offset_top = 14.0
 offset_right = 1.0
@@ -137,7 +137,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PoisonPointsLabel" type="Label" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer3/InfoMarker"]
+[node name="PoisonPointsLabel" type="Label" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer/InfoMarker"]
 self_modulate = Color(0.517647, 0.878431, 0.235294, 1)
 offset_left = -1.0
 offset_top = 14.0
@@ -147,7 +147,7 @@ text = "10"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RightPile" type="TextureRect" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer3" groups=["piles"]]
+[node name="RightPile" type="TextureRect" parent="CenterContainer/GridContainer/RightPileContainer/VBoxContainer" groups=["piles"]]
 unique_name_in_owner = true
 self_modulate = Color(1, 1, 1, 0.2)
 custom_minimum_size = Vector2(60, 84)

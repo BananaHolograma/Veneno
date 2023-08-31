@@ -57,7 +57,6 @@ func initialize_deck_of_cards_on_table():
 	current_deck = deck_placeholder
 	
 
-
 func change_turn_to(player: Player):
 	GlobalGameEvents.emit_turn_finished(active_player)
 	active_player = player
@@ -76,7 +75,8 @@ func add_players_to_table(players: Array[Dictionary]):
 		
 		card_zone_positions[player["username"]] = {
 			"zone": zone , 
-			"deal_position": zone.global_position
+			"deal_position": zone.global_position,
+			"drop_card_texture": zone.get_node_or_null("DropCardTexture")
 		}
 		
 		add_player_to_table(player)
@@ -93,6 +93,7 @@ func add_player_to_table(player: Dictionary):
 	new_player.name = player["username"]
 	new_player.is_human = player["human"]
 	new_player.table_position = player["table_position"]
+	new_player.card_zone = card_zone_positions[new_player.username]
 	new_player.cards_in_hand = current_deck.deal_initial_cards(new_player, MAX_CARDS_IN_HAND)
 	current_players[new_player.username] = new_player
 	
@@ -138,7 +139,7 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
 	var player_card_zone = card_zone_positions[player.username]
 
 	for slot in player_card_zone["zone"].get_children():
-		if slot.playing_card.card_name == card.card_name:
+		if slot is CardSlot and slot.playing_card.card_name == card.card_name:
 			slot.queue_free()
 			break
 	

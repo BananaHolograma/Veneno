@@ -89,6 +89,9 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 columns = 4
 
+[node name="DropCardTexture" type="Sprite2D" parent="Playground/PlayerTwo/CenterContainer/MarginContainer/PlayerTwoCardZone"]
+position = Vector2(1, 44)
+
 [node name="PlayerThree" type="Control" parent="Playground"]
 layout_mode = 3
 anchors_preset = 6
@@ -125,6 +128,10 @@ layout_mode = 2
 mouse_default_cursor_shape = 2
 columns = 4
 
+[node name="DropCardTexture" type="Sprite2D" parent="Playground/PlayerThree/CenterContainer/MarginContainer/PlayerThreeCardZone"]
+position = Vector2(-150.999, 272)
+rotation = -1.5708
+
 [node name="PlayerFour" type="Control" parent="Playground"]
 layout_mode = 3
 anchors_preset = 4
@@ -156,6 +163,10 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_default_cursor_shape = 2
 columns = 4
+
+[node name="DropCardTexture" type="Sprite2D" parent="Playground/PlayerFour/CenterContainer/MarginContainer/PlayerFourCardZone"]
+position = Vector2(-151.001, -276)
+rotation = -1.5708
 
 [node name="DeckPlace" type="Marker2D" parent="Playground" groups=["deck"]]
 z_index = 4
