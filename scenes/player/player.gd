@@ -99,6 +99,10 @@ func _prepare_decision_tree() -> Dictionary:
 		func(pile: PileSlot): return {"pile": pile, "cards_to_drop": decision_tree["normal_cards"].filter(func(card: PlayingCard): return not card.suit in decision_tree["allowed_suits_to_drop_cards"])}
 	)
 	
+	if _empty_piles_are_available(decision_tree) and _piles_with_suit_are_available(decision_tree):
+		for pile_with_suit in decision_tree["piles_with_suit"].values():
+			pile_with_suit["cards_to_drop"] = pile_with_suit["cards_to_drop"].filter(func(card: PlayingCard): return not card in decision_tree["empty_piles"][0]["cards_to_drop"])
+		
 	return decision_tree
 	
 

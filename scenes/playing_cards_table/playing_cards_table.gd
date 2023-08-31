@@ -29,8 +29,8 @@ func _ready():
 		"players": [
 		{"username": "ghost", "human": true},
 		 {"username": "robot", "human": false},
-#		{"username": "robot2", "human": false},
-#		{"username": "robot3", "human": false},
+		{"username": "robot2", "human": false},
+		{"username": "robot3", "human": false},
 	] as Array[Dictionary],
 		"poison_suit": "hearts",
 		"rounds": 2
