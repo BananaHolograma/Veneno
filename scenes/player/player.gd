@@ -1,9 +1,5 @@
 class_name Player extends Node2D
 
-signal turn_started
-signal turn_finished
-signal new_collected_cards(cards: Array[PlayingCard])
-
 const GROUP_NAME = "players"
 
 var is_human: bool = true
@@ -35,7 +31,6 @@ func normal_cards_in_hand() -> Array[PlayingCard]:
 	
 func collect_cards(cards: Array[PlayingCard]):
 	collected_cards.append_array(cards)
-	new_collected_cards.emit(cards)
 
 
 func execute_robot_movement():
