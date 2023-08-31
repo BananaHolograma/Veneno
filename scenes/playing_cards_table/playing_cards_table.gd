@@ -65,11 +65,11 @@ func change_turn_to(player: Player):
 	active_player.execute_robot_movement()
 
 
-func add_players_to_table(players: Array[Dictionary]):
+func add_players_to_table(new_players: Array[Dictionary]):
 	var player_position: int = 0
 	card_zone_positions.clear()
 	
-	for player in players.slice(0, MAX_NUMBER_OF_PLAYERS):
+	for player in new_players.slice(0, MAX_NUMBER_OF_PLAYERS):
 		var zone = card_zones[player_position]
 		player["table_position"] = player_position
 		
@@ -135,7 +135,7 @@ func update_player_card_hand(player: Player) -> void:
 			draw_card_slots(player)
 		
 
-func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
+func on_card_dropped_in_pile(player: Player, card: PlayingCard, _pile: PileSlot):
 	var player_card_zone = card_zone_positions[player.username]
 
 	for slot in player_card_zone["zone"].get_children():

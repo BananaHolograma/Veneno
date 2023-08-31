@@ -37,21 +37,28 @@ func _can_drop_data(_at_position, data):
 		and card_can_be_dropped_in_this_pile(data.playing_card)
 	
 
-func _drop_data(at_position, data):
+func _drop_data(_at_position, data):
 	drop_card_in_pile(data.player, data.playing_card)
 
 
 func drop_card_in_pile(player: Player, card: PlayingCard):
-	if player == actual_player and card_can_be_dropped_in_this_pile(card):	
+	if player == actual_player and card is PlayingCard and card_can_be_dropped_in_this_pile(card):	
 		if current_suit.is_empty() and not card.is_poison:
 			show_suit_symbol(card.suit)
-		
+
 		if not player.is_human:
+			for hand_card in player.card_zone["zone"].get_children():
+				if  hand_card is TextureRect and hand_card.playing_card.card_name == card.card_name:
+					hand_card.visible = false
+				
 			player.card_zone["drop_card_texture"].visible = true
 			player.card_zone["drop_card_texture"].texture = card.symbol_texture.texture.duplicate()
+			player.card_zone["drop_card_texture"].z_index = 11
+			
+			var snapped_position = card.symbol_texture.get_rect().size / 2
 			var tween = create_tween()
-			tween.tween_property(player.card_zone["drop_card_texture"], "global_position", global_position, 1.0)\
-			.from(player.card_zone["drop_card_texture"].global_position + card.symbol_texture.get_rect().size)
+			tween.tween_property(player.card_zone["drop_card_texture"], "global_position", global_position + snapped_position , 0.8)\
+			.from(player.card_zone["drop_card_texture"].global_position + snapped_position)
 			tween.tween_callback(on_robot_dropped_card_animation_finished.bind(player, card))
 		else:
 			confirm_card_in_pile(player, card)
@@ -91,13 +98,14 @@ func suit_is_not_active(suit: String) -> bool:
 func add_card_to_pile(card: PlayingCard) -> void:
 	var card_pile_texture = TextureRect.new()
 	card_pile_texture.name = card.card_name
-	card_pile_texture.texture = card.symbol_texture.texture
+	card_pile_texture.texture = card.symbol_texture.texture.duplicate()
 	card_pile_texture.expand_mode = TextureRect.EXPAND_KEEP_SIZE
 	card_pile_texture.size = card.symbol_texture.get_rect().size
 	card_pile_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	if card.is_poison:
 		card_pile_texture.position.y += 21
+		card_pile_texture.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		var tween = create_tween()
 		tween.tween_property(card_pile_texture, "self_modulate", Color.LIGHT_GREEN, 0.35).from(Color.LIME_GREEN)
 
@@ -152,7 +160,7 @@ func reset_pile() -> void:
 
 func on_pile_collected(player: Player, cards: Array[PlayingCard], pile: PileSlot) -> void:
 	if pile == self and player == actual_player:
-		player.collect_cards(cards_in_pile)
+		player.collect_cards(cards)
 		reset_pile()
 
 

@@ -13,7 +13,7 @@ func _notification(what):
 				hover_animation(0.0)
 
 
-func _get_drag_data(at_position):
+func _get_drag_data(_at_position):
 	if player_can_interact():
 		z_index = 10
 		var preview_card_slot = duplicate()
@@ -33,11 +33,11 @@ func _get_drag_data(at_position):
 		return preview_card_slot
 
 
-func _can_drop_data(at_position, data):
+func _can_drop_data(_at_position, data):
 	return data is CardSlot and data.playing_card == playing_card and data.player == player
 	
 	
-func _drop_data(at_position, data):
+func _drop_data(_at_position, _data):
 	texture = playing_card.symbol_texture.texture
 	modulate.a = 1.0
 
