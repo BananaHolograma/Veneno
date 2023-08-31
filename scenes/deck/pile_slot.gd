@@ -1,6 +1,5 @@
 class_name PileSlot extends TextureRect
 
-signal pile_collected(player: Player, pile: PileSlot)
 
 @onready var current_suit: String
 @onready var current_points: float = 0.0
@@ -26,6 +25,8 @@ func _ready():
 	if points_label and poison_points_label:
 		points_label.text = ""
 		poison_points_label.text = ""
+	
+	GlobalGameEvents.pile_collected.connect(on_pile_collected)
 		
 		
 func _can_drop_data(_at_position, data):
@@ -51,13 +52,11 @@ func drop_card_in_pile(player: Player, card: PlayingCard):
 			
 
 func card_can_be_dropped_in_this_pile(card: PlayingCard) -> bool:
-	var players = get_tree().get_nodes_in_group("players")
-	var players_have_cards_in_their_hand = players.filter(func(player: Player): return player.cards_in_hand.size() > 0).size() > 0
-
+	var poison_allowed = card.is_poison and not current_suit.is_empty()
+	var empty_pile = current_suit.is_empty() and suit_is_not_active(card.suit) and not card.is_poison 
+	var suit_is_allowed = card.suit == current_suit and not card.is_poison
 	
-	return players_have_cards_in_their_hand	and card.is_poison and not current_suit.is_empty() or \
-		(not card.is_poison and current_suit.is_empty() and suit_is_not_active(card.suit)) \
-		or card.suit == current_suit
+	return poison_allowed or empty_pile or suit_is_allowed
 
 
 func suit_is_not_active(suit: String) -> bool:
@@ -113,9 +112,7 @@ func clean_info_marker():
 
 func check_points(player: Player):
 	if current_points >= 13:	
-		player.collect_cards(cards_in_pile)
 		GlobalGameEvents.emit_pile_collected(player, cards_in_pile, self)
-		reset_pile()
 
 
 func reset_pile() -> void:
@@ -125,3 +122,12 @@ func reset_pile() -> void:
 	cards_in_pile.clear()
 	self_modulate.a = 0.2
 	clean_info_marker()
+	
+	for child in get_children():
+		if child is TextureRect:
+			child.queue_free()
+
+
+func on_pile_collected(player: Player, cards: Array[PlayingCard], pile: PileSlot):
+	player.collect_cards(cards_in_pile)
+	reset_pile()
