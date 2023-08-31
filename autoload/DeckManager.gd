@@ -6,12 +6,15 @@ enum TYPES_OF_DECK {
 }
 
 var playing_card_scene: PackedScene = preload("res://scenes/deck/playing_card.tscn")
+
 var POISON_SUIT: String = "HEARTS"
 
+var NUMBER_OF_FRENCH_CARDS = 52
 var BASE_FRENCH_DECK: Dictionary = {"SPADES": {}, "CLUBS": {}, "HEARTS": {}, "DIAMONDS": {}}
 var FRENCH_TABLE_VALUES: Dictionary = {
 	"ace": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 0.5, "9": 0.5, "10": 0.5, "jack": 0.5, "queen": 0.5, "king": 0.5
 }
+
 
 var base_french_card_white_path: String = "res://assets/cards/french/{suit}/{value}_white.png"
 var base_french_card_path: String = "res://assets/cards/french/{suit}/{value}.png"

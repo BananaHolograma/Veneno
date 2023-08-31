@@ -17,8 +17,9 @@ func deal_initial_cards(player: Player, amount: int) -> Array[PlayingCard]:
 	var cards: Array[PlayingCard] = []
 
 	# Edge case when all the cards in the first deal are poison
-	while cards.is_empty() or cards.filter(func(card): return card.is_poison).size() == cards.size():
-		CURRENT_DECK.append_array(cards)
+	while cards.is_empty() or all_cards_are_poison(cards):
+		if CURRENT_DECK.size() < GlobalDeckManager.NUMBER_OF_FRENCH_CARDS:
+			CURRENT_DECK.append_array(cards)
 
 		for _i in amount:
 			cards.append(pick_card_from_deck(player))
@@ -49,12 +50,16 @@ func pick_card_from_deck(player: Player):
 func update_sprite_based_on_deck_cards():
 	var percentage = CURRENT_DECK.size() / 52.0
 	
-	full.visible = percentage >= 0.75
-	semi_full.visible = percentage >= 0.60
-	half.visible = percentage >= 0.35
+	full.visible = percentage >= 0.70
+	semi_full.visible = percentage >= 0.40
+	half.visible = percentage >= 0.25
 	one_card.visible = CURRENT_DECK.size() == 1
 
 
+func all_cards_are_poison(cards: Array[PlayingCard]) -> bool:
+	return cards.filter(func(card): return card.is_poison).size() == cards.size()
+	
+	
 func run_deal_animation(cards: Array[CardSlot], deal_position: Vector2):
 	if not cards.is_empty():
 		var card = cards.back() as CardSlot

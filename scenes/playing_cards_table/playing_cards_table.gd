@@ -2,22 +2,17 @@ class_name PlayingCardsTable extends Node
 
 @onready var deck_place: Marker2D = $Playground/DeckPlace
 @onready var players: Node = $Players
-
-@onready var player_one_card_zone: GridContainer = %PlayerOneCardZone
-@onready var player_two_card_zone: GridContainer = %PlayerTwoCardZone
-@onready var player_three_card_zone: GridContainer = %PlayerThreeCardZone
-@onready var player_four_card_zone: GridContainer = %PlayerFourCardZone
-
 @onready var card_zones: Array[GridContainer] = [
-	player_one_card_zone,
- 	player_two_card_zone,
- 	player_three_card_zone,
- 	player_four_card_zone
+	%PlayerOneCardZone,
+ 	%PlayerTwoCardZone,
+ 	%PlayerThreeCardZone,
+ 	%PlayerFourCardZone
 ]
 
 @export_range(0, 4, 1) var MAX_NUMBER_OF_PLAYERS: int = 4
 
 const MAX_CARDS_IN_HAND: int = 4
+var CURRENT_POISON_SUIT: String = "hearts"
 
 var deck_placeholder_scene = preload("res://scenes/playing_cards_table/deck_placeholder.tscn")
 var player_scene: PackedScene = preload("res://scenes/player/player.tscn")
@@ -30,32 +25,44 @@ var turns: Array = []
 
 func _ready():
 	# Temporary for debug purposes, needs to be handled dinamically
-	start_new_game([
+	var parameters: Dictionary = {
+		"players": [
 		{"username": "ghost", "human": true},
 		 {"username": "robot", "human": false},
 #		{"username": "robot2", "human": false},
 #		{"username": "robot3", "human": false},
-	])
+	],
+		"poison_suit": "hearts",
+		"rounds": 2
+	}
+	
+	start_new_game(parameters)
 
 	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
 	GlobalGameEvents.emptied_deck.connect(on_emptied_deck)
 	
 	
-func start_new_game(players: Array[Dictionary]):
+func start_new_game(parameters: Dictionary):
 	initialize_deck_of_cards_on_table()
-	await add_players_to_table(players)
+	await add_players_to_table(parameters["players"])
 	change_turn_to(active_player)
 
 
 func initialize_deck_of_cards_on_table():
-	if deck_place:
-		var deck_placeholder = deck_placeholder_scene.instantiate() as DeckPlaceholder
-		deck_place.add_child(deck_placeholder)
-		current_deck = deck_placeholder
+	if not deck_place:
+		push_error("The table needs a start position to initialize the deck, deck place must be set up")
+	
+	var deck_placeholder = deck_placeholder_scene.instantiate() as DeckPlaceholder
+	deck_place.add_child(deck_placeholder)
+	current_deck = deck_placeholder
+	
 
 
 func change_turn_to(player: Player):
+	GlobalGameEvents.emit_turn_finished(active_player)
 	active_player = player
+	GlobalGameEvents.emit_turn_started(player)
+	
 	active_player.execute_robot_movement()
 
 

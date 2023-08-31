@@ -42,17 +42,33 @@ func execute_robot_movement():
 			_drop_normal_card_in_empty_pile(decision_tree)
 		else:
 			if decision_tree["piles_with_suit"].keys().size() > 0:
-				if decision_tree["allowed_suits_to_drop_cards"].size() > 0:
+				var has_allowed_suit_cards_to_drop = decision_tree["allowed_suits_to_drop_cards"].size() > 0
+				var there_are_empty_piles = decision_tree["empty_piles"].size() > 0
+				
+				if has_allowed_suit_cards_to_drop and there_are_empty_piles:
+					if random_number_generator.randf_range(0.0, 1.0) < 0.45:
 						if _decides_to_use_poison(decision_tree):
 							_drop_poison_card_in_pile(decision_tree)
 						else:
 							_drop_normal_card_in_pile(decision_tree)
-				
-				elif decision_tree["empty_piles"].size() > 0:
+					else:
+						_drop_normal_card_in_empty_pile(decision_tree)
+					
+					return
+					
+				elif not has_allowed_suit_cards_to_drop and there_are_empty_piles:
 					_drop_normal_card_in_empty_pile(decision_tree)
+					return
+					
+				elif has_allowed_suit_cards_to_drop and not there_are_empty_piles:
+					if _decides_to_use_poison(decision_tree):
+						_drop_poison_card_in_pile(decision_tree)
+					else:
+						_drop_normal_card_in_pile(decision_tree)
 				else:
 					_drop_poison_card_in_pile(decision_tree)
-					
+
+
 
 func _prepare_decision_tree() -> Dictionary:
 	var decision_tree: Dictionary = {
@@ -79,7 +95,7 @@ func _prepare_decision_tree() -> Dictionary:
 	
 
 func _drop_normal_card_in_pile(decision_tree: Dictionary) -> void:
-	if decision_tree["piles_with_suit"].keys().size() > 0:
+	if _piles_with_suit_are_available(decision_tree):
 		var selected_pile_data = decision_tree["piles_with_suit"].values().filter(func(data): return data["cards_to_drop"].size() > 0).pick_random()
 		var selected_pile = selected_pile_data["pile"] as PileSlot
 		selected_pile.drop_card_in_pile(self, selected_pile_data["cards_to_drop"].pick_random())
@@ -91,13 +107,21 @@ func _drop_normal_card_in_empty_pile(decision_tree: Dictionary) -> void:
 
 
 func _drop_poison_card_in_pile(decision_tree: Dictionary) -> void:
-	if decision_tree["poison_cards"].size() > 0 and decision_tree["piles_with_suit"].keys().size() > 0:
+	if decision_tree["poison_cards"].size() > 0 and _piles_with_suit_are_available(decision_tree):
 		var selected_pile = decision_tree["piles_with_suit"].values().pick_random()["pile"]
 		selected_pile.drop_card_in_pile(self, decision_tree["poison_cards"].pick_random())
 
 
 func _decides_to_use_poison(decision_tree: Dictionary) -> bool:
-	if decision_tree["poison_cards"].size() > 0 and decision_tree["piles_with_suit"].keys().size() > 0:
+	if decision_tree["poison_cards"].size() > 0 and _piles_with_suit_are_available(decision_tree):
 		return random_number_generator.randf_range(0.0, 0.1) < 0.25
 	else:
 		return false
+
+
+func _piles_with_suit_are_available(decision_tree: Dictionary) -> bool:
+	return decision_tree["piles_with_suit"].keys().size() > 0
+	
+
+func _empty_piles_are_available(decision_tree: Dictionary) -> bool:
+	return  decision_tree["empty_piles"].size() > 0
