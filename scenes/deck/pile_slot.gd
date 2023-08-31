@@ -53,6 +53,7 @@ func drop_card_in_pile(player: Player, card: PlayingCard):
 func card_can_be_dropped_in_this_pile(card: PlayingCard) -> bool:
 	var players = get_tree().get_nodes_in_group("players")
 	var players_have_cards_in_their_hand = players.filter(func(player: Player): return player.cards_in_hand.size() > 0).size() > 0
+
 	
 	return players_have_cards_in_their_hand	and card.is_poison and not current_suit.is_empty() or \
 		(not card.is_poison and current_suit.is_empty() and suit_is_not_active(card.suit)) \

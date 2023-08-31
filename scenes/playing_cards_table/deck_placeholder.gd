@@ -2,8 +2,9 @@ class_name DeckPlaceholder extends Node2D
 
 @onready var one_card: Sprite2D = $OneCard
 @onready var half: Sprite2D = $Half
+@onready var semi_full: Sprite2D = $SemiFull
 @onready var full: Sprite2D = $Full
-@onready var card_texture_placeholder: Sprite2D = $CardTexturePlaceholder
+@onready var deal_card_texture: Sprite2D = $DealCardTexture
 
 var CURRENT_DECK: Array[PlayingCard]
 
@@ -48,7 +49,8 @@ func pick_card_from_deck(player: Player):
 func update_sprite_based_on_deck_cards():
 	var percentage = CURRENT_DECK.size() / 52.0
 	
-	full.visible = percentage >= 0.65
+	full.visible = percentage >= 0.75
+	semi_full.visible = percentage >= 0.60
 	half.visible = percentage >= 0.35
 	one_card.visible = CURRENT_DECK.size() == 1
 
@@ -58,9 +60,9 @@ func run_deal_animation(cards: Array[CardSlot], deal_position: Vector2):
 		var card = cards.back() as CardSlot
 		
 		if card.is_inside_tree():
-			card_texture_placeholder.texture = card.playing_card.back_texture.texture
+			deal_card_texture.texture = card.playing_card.back_texture.texture
 			var tween = create_tween()
-			tween.tween_property(card_texture_placeholder, "global_position", deal_position - card.get_rect().size, 0.45)\
+			tween.tween_property(deal_card_texture, "global_position", deal_position - card.get_rect().size, 0.45)\
 				.set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_IN)
 		
 			tween.tween_callback(_on_finished_deal_animation.bind(card, cards, deal_position))
@@ -68,8 +70,8 @@ func run_deal_animation(cards: Array[CardSlot], deal_position: Vector2):
 
 func _on_finished_deal_animation(last_card: CardSlot, cards: Array[CardSlot], deal_position: Vector2):
 	last_card.visible = true
-	card_texture_placeholder.texture = null
-	card_texture_placeholder.global_position = global_position
+	deal_card_texture.texture = null
+	deal_card_texture.global_position = global_position
 	
 	if cards.size() > 0:
 		cards.erase(last_card)

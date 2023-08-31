@@ -13,8 +13,13 @@ texture = ExtResource("1_4vn3v")
 position = Vector2(3, 0)
 texture = ExtResource("1_4vn3v")
 
+[node name="SemiFull" type="Sprite2D" parent="."]
+z_index = 1
+position = Vector2(9, 0)
+texture = ExtResource("1_4vn3v")
+
 [node name="Full" type="Sprite2D" parent="."]
 position = Vector2(6, 0)
 texture = ExtResource("1_4vn3v")
 
-[node name="CardTexturePlaceholder" type="Sprite2D" parent="."]
+[node name="DealCardTexture" type="Sprite2D" parent="."]

@@ -30,7 +30,12 @@ var turns: Array = []
 
 func _ready():
 	# Temporary for debug purposes, needs to be handled dinamically
-	start_new_game([{"username": "ghost", "human": true}, {"username": "robot", "human": false}])
+	start_new_game([
+		{"username": "ghost", "human": true},
+		 {"username": "robot", "human": false},
+#		{"username": "robot2", "human": false},
+#		{"username": "robot3", "human": false},
+	])
 
 	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
 	GlobalGameEvents.emptied_deck.connect(on_emptied_deck)
@@ -38,7 +43,8 @@ func _ready():
 	
 func start_new_game(players: Array[Dictionary]):
 	initialize_deck_of_cards_on_table()
-	add_players_to_table(players)
+	await add_players_to_table(players)
+	change_turn_to(active_player)
 
 
 func initialize_deck_of_cards_on_table():
@@ -49,61 +55,8 @@ func initialize_deck_of_cards_on_table():
 
 
 func change_turn_to(player: Player):
-	var new_card = current_deck.pick_card_from_deck(active_player)
-
-	if new_card is PlayingCard:
-		draw_card_slots(active_player)
-	
 	active_player = player
-	
-	if not active_player.is_human:
-		execute_robot_movement(active_player)
-
-func execute_robot_movement(player: Player) -> void:
-	if not player.cards_in_hand.is_empty():
-		var decision_tree: Dictionary = {"empty_piles": [], "piles_with_suit": {}}
-		var piles = get_tree().get_nodes_in_group("piles") as Array[PileSlot]
-		
-		decision_tree["empty_piles"] = piles.filter(func(pile: PileSlot): return pile.current_suit.is_empty()) as Array[PileSlot]
-		
-		for pile in piles.filter(func (pile: PileSlot): return pile not in decision_tree["empty_piles"]):
-			decision_tree["piles_with_suit"][pile.current_suit] = { "pile": pile, "cards_to_drop": []}
-		
-		var normal_cards = player.normal_cards_in_hand() as Array[PlayingCard]
-		var poison_cards = player.poison_cards_in_hand() as Array[PlayingCard]
-		var allowed_suits_to_drop_cards: Array[String] = []
-		
-		for normal_card in normal_cards:
-			if decision_tree["piles_with_suit"].has(normal_card.suit):
-				decision_tree["piles_with_suit"][normal_card.suit]["cards_to_drop"].append(normal_card)
-				if not allowed_suits_to_drop_cards.has(normal_card.suit):
-					allowed_suits_to_drop_cards.append(normal_card.suit)
-		
-		# EMPTY TABLE
-		if decision_tree["empty_piles"].size() == piles.size():
-			var selected_pile = decision_tree["empty_piles"].pick_random() as PileSlot
-			selected_pile.drop_card_in_pile(player, normal_cards.pick_random())
-		# NOT ALLOWED SUITS IN HAND TO DROP IN TABLE, ONLY EMPTY PILES
-		elif allowed_suits_to_drop_cards.is_empty():
-			if decision_tree["empty_piles"].size() > 0:
-				var selected_pile = decision_tree["empty_piles"].pick_random() as PileSlot
-				selected_pile.drop_card_in_pile(player, normal_cards.pick_random())
-			else:
-				# ALLOWED PILES TO DROP SUIT CARDS AND POISON CARDS
-				if poison_cards.size() > 0:
-					var selected_pile = decision_tree["piles_with_suit"].values().pick_random() as PileSlot
-					selected_pile.drop_card_in_pile(player, poison_cards.pick_random())
-					return
-					
-				if normal_cards.size() > 0:
-					var allowed_piles_to_drop_cards = decision_tree["piles_with_suit"].values().filter(func(pile_data): return pile_data["cards_to_drop"].size() > 0)
-					var selected_pile = allowed_piles_to_drop_cards.pick_random()
-					
-					if selected_pile:
-						selected_pile["pile"].drop_card_in_pile(player, selected_pile["cards_to_drop"].pick_random())
-					
-			
-			
+	active_player.execute_robot_movement()
 
 
 func add_players_to_table(players: Array[Dictionary]):
@@ -126,7 +79,6 @@ func add_players_to_table(players: Array[Dictionary]):
 		
 	turns.append_array(current_players.values())
 	active_player = turns.pick_random()
-
 
 	
 func add_player_to_table(player: Dictionary):
@@ -168,6 +120,14 @@ func draw_card_slots(player: Player):
 	current_deck.run_deal_animation(card_slots, original_global_position)
 
 
+func update_player_card_hand(player: Player) -> void:
+	if player.cards_in_hand.size() < MAX_CARDS_IN_HAND:
+		var new_card = current_deck.pick_card_from_deck(player)
+
+		if new_card is PlayingCard:
+			draw_card_slots(player)
+		
+
 func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
 	var player_card_zone = card_zone_positions[player.username]
 
@@ -175,7 +135,9 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
 		if slot.playing_card.card_name == card.card_name:
 			slot.queue_free()
 			break
-		
+	
+	update_player_card_hand(player)
+	
 	var current_index: int = turns.find(player)
 	var next_player: Player
 
@@ -185,6 +147,7 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, pile: PileSlot):
 		next_player = turns[0]
 	
 	change_turn_to(next_player)
+
 
 func on_emptied_deck(player: Player):
 	pass
