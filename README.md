@@ -1,5 +1,6 @@
 # Veneno - playing card game
 Use this Godot 4 project as inspiration for your card games or simply have a game. For now, you can only play against the AI, and multiplayer is not implemented yet.
+LICENSE is MIT so you can use the code from this project for whatever you want, even commercially, just don't forget to give the repository a star.
 
 - Number of players 2 ~ 4
 - French or Spanish deck
@@ -25,3 +26,8 @@ The player with the fewest poison points at the end of the game.
 
 # End screen
 ![end screen](end_screen.gif)
+
+
+
+# Resources used in this project
+[Pixel playing cards sprite pack](https://georgeblackwell.itch.io/playing-cards-sprite-pack)
