@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://mjg8mjuba2vp"]
+[gd_scene load_steps=4 format=3 uid="uid://mjg8mjuba2vp"]
 
 [ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_kchki"]
+[ext_resource type="PackedScene" uid="uid://f74a836ppghx" path="res://scenes/ui/menu_background.tscn" id="2_u3400"]
+[ext_resource type="Theme" uid="uid://dbinna160gh60" path="res://theme/default.tres" id="3_0arwj"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_kchki")
@@ -12,6 +14,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Background" parent="MainMenu" instance=ExtResource("2_u3400")]
+layout_mode = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
 layout_mode = 1
@@ -33,13 +38,19 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="NewGame" type="Button" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 25)
 layout_mode = 2
 focus_neighbor_top = NodePath("../MarginContainer/Quit")
+theme = ExtResource("3_0arwj")
+theme_override_constants/outline_size = 0
+theme_override_constants/h_separation = 0
 theme_override_font_sizes/font_size = 16
 text = "New game"
 
 [node name="Options" type="Button" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 25)
 layout_mode = 2
+theme = ExtResource("3_0arwj")
 text = "Options"
 
 [node name="MarginContainer" type="MarginContainer" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer"]
@@ -47,8 +58,10 @@ layout_mode = 2
 theme_override_constants/margin_top = 14
 
 [node name="Quit" type="Button" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(75, 25)
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../../NewGame")
+theme = ExtResource("3_0arwj")
 text = "Quit"
 
 [connection signal="pressed" from="MainMenu/MarginContainer/CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]

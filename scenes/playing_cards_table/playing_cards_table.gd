@@ -148,3 +148,7 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, _pile: PileSlot)
 func on_emptied_deck(player: Player):
 	pass
 
+
+
+func _on_texture_button_pressed():
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")

@@ -1,7 +1,6 @@
 extends Control
 
 @onready var option_button: OptionButton = $CenterContainer/MarginContainer/VBoxContainer/OptionButton
-
 var playing_cards_table_scene: PackedScene = preload("res://scenes/playing_cards_table/playing_cards_table.tscn")
 
 var parameters: Dictionary = {
@@ -9,6 +8,7 @@ var parameters: Dictionary = {
 		"poison_suit": "hearts",
 		"rounds": 2
 	}
+	
 
 
 func _on_start_game_pressed():
@@ -34,3 +34,7 @@ func set_players(amount: int):
 			amount_of_players.append_array([{"username": "robot2", "human": false}, {"username": "robot3", "human": false}])
 			
 	parameters["players"] = amount_of_players
+
+
+func _on_back_to_menu_pressed():
+	get_tree().change_scene_to_file("res://scenes/ui/main_menu.tscn")

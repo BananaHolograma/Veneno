@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhncatypwgas4"]
+[gd_scene load_steps=3 format=3 uid="uid://bhncatypwgas4"]
 
 [ext_resource type="Script" path="res://scenes/ui/options.gd" id="1_jc6o1"]
+[ext_resource type="Texture2D" uid="uid://tmesg8ke1qka" path="res://assets/background/trees&bushes.png" id="2_a4ddh"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -10,6 +11,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_jc6o1")
+
+[node name="OptionsBackground" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(640, 360)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_a4ddh")
+expand_mode = 2
 
 [node name="Parameters" type="Control" parent="."]
 layout_mode = 1

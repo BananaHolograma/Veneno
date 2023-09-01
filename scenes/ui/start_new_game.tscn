@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://ci43faikjvr10"]
+[gd_scene load_steps=4 format=3 uid="uid://ci43faikjvr10"]
 
 [ext_resource type="Script" path="res://scenes/ui/start_new_game.gd" id="1_n1vko"]
+[ext_resource type="PackedScene" uid="uid://f74a836ppghx" path="res://scenes/ui/menu_background.tscn" id="2_jn6w5"]
+[ext_resource type="Theme" uid="uid://dbinna160gh60" path="res://theme/default.tres" id="3_tssex"]
 
 [node name="StartNewGame" type="Control"]
 layout_mode = 3
@@ -10,6 +12,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_n1vko")
+
+[node name="Background" parent="." instance=ExtResource("2_jn6w5")]
+layout_mode = 0
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -27,10 +32,13 @@ theme_override_constants/margin_bottom = 50
 layout_mode = 2
 
 [node name="Start Game!" type="Button" parent="CenterContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-text = "Start game!"
+theme = ExtResource("3_tssex")
+text = "Start Game"
 
 [node name="OptionButton" type="OptionButton" parent="CenterContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(75, 30)
 layout_mode = 2
 item_count = 3
 selected = 0
@@ -56,8 +64,11 @@ grow_vertical = 0
 theme_override_constants/margin_bottom = 10
 
 [node name="Back to menu" type="Button" parent="MarginContainer"]
+custom_minimum_size = Vector2(90, 25)
 layout_mode = 2
+theme = ExtResource("3_tssex")
 text = "Back to menu"
 
 [connection signal="pressed" from="CenterContainer/MarginContainer/VBoxContainer/Start Game!" to="." method="_on_start_game_pressed"]
 [connection signal="item_selected" from="CenterContainer/MarginContainer/VBoxContainer/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/Back to menu" to="." method="_on_back_to_menu_pressed"]

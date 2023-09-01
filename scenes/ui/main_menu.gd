@@ -2,7 +2,8 @@ extends CanvasLayer
 
 @onready var new_game: Button = $MainMenu/MarginContainer/CenterContainer/VBoxContainer/NewGame
 @onready var options: Button = $MainMenu/MarginContainer/CenterContainer/VBoxContainer/Options
-@onready var quit: Button = $MainMenu/MarginContainer/CenterContainer/VBoxContainer/Quit
+@onready var quit: Button = $MainMenu/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/Quit
+
 
 var start_new_game_scene: PackedScene = preload("res://scenes/ui/start_new_game.tscn")
 var option_menu_scene: PackedScene = preload("res://scenes/ui/options.tscn")

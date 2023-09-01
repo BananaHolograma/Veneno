@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b83imna4ns5qu"]
+[gd_scene load_steps=6 format=3 uid="uid://b83imna4ns5qu"]
 
 [ext_resource type="Script" path="res://scenes/playing_cards_table/playing_cards_table.gd" id="1_4nw15"]
 [ext_resource type="PackedScene" uid="uid://d2h45wo1k6dwo" path="res://scenes/playing_cards_table/center_drop_zone.tscn" id="3_5y7pu"]
+[ext_resource type="Texture2D" uid="uid://wx1y8njr2p4v" path="res://assets/icons/exit_white.png" id="4_b75rh"]
+[ext_resource type="Texture2D" uid="uid://dhm6brmujo24i" path="res://assets/icons/exit_left.png" id="4_nk0im"]
 [ext_resource type="Texture2D" uid="uid://c4mr6uppujmcq" path="res://assets/background/poker_table_green.jpg" id="5_y2rfo"]
 
 [node name="PlayingCardsTable" type="Node"]
@@ -171,3 +173,15 @@ rotation = -1.5708
 [node name="DeckPlace" type="Marker2D" parent="Playground" groups=["deck"]]
 z_index = 4
 position = Vector2(174, 180)
+
+[node name="ExitButton" type="TextureButton" parent="Playground"]
+offset_left = 596.0
+offset_top = 317.0
+offset_right = 646.0
+offset_bottom = 367.0
+scale = Vector2(0.8, 0.8)
+mouse_default_cursor_shape = 2
+texture_normal = ExtResource("4_nk0im")
+texture_hover = ExtResource("4_b75rh")
+
+[connection signal="pressed" from="Playground/ExitButton" to="." method="_on_texture_button_pressed"]

@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://f74a836ppghx"]
+
+[ext_resource type="Texture2D" uid="uid://bb1wo3jbqa6n5" path="res://assets/background/ruins.png" id="1_uospo"]
+[ext_resource type="Script" path="res://scenes/ui/menu_background.gd" id="2_lco7x"]
+
+[node name="Background" type="TextureRect"]
+offset_right = 640.0
+offset_bottom = 360.0
+texture = ExtResource("1_uospo")
+expand_mode = 2
+script = ExtResource("2_lco7x")
