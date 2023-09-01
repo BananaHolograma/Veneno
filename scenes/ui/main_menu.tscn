@@ -1,0 +1,56 @@
+[gd_scene load_steps=2 format=3 uid="uid://mjg8mjuba2vp"]
+
+[ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_kchki"]
+
+[node name="MainMenu" type="CanvasLayer"]
+script = ExtResource("1_kchki")
+
+[node name="MainMenu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="CenterContainer" type="CenterContainer" parent="MainMenu/MarginContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="NewGame" type="Button" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+focus_neighbor_top = NodePath("../MarginContainer/Quit")
+theme_override_font_sizes/font_size = 16
+text = "New game"
+
+[node name="Options" type="Button" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Options"
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 14
+
+[node name="Quit" type="Button" parent="MainMenu/MarginContainer/CenterContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("../../NewGame")
+text = "Quit"
+
+[connection signal="pressed" from="MainMenu/MarginContainer/CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/CenterContainer/VBoxContainer/MarginContainer/Quit" to="." method="_on_quit_pressed"]

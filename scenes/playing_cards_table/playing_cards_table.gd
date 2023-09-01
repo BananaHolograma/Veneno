@@ -24,19 +24,8 @@ var current_deck: DeckPlaceholder
 var turns: Array = []
 
 func _ready():
-	# Temporary for debug purposes, needs to be handled dinamically
-	var parameters: Dictionary = {
-		"players": [
-		{"username": "ghost", "human": true},
-		 {"username": "robot", "human": false},
-		{"username": "robot2", "human": false},
-		{"username": "robot3", "human": false},
-	] as Array[Dictionary],
-		"poison_suit": "hearts",
-		"rounds": 2
-	}
-	
-	start_new_game(parameters)
+
+	start_new_game(GlobalGameOptions.active_game_parameters)
 
 	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
 	GlobalGameEvents.emptied_deck.connect(on_emptied_deck)

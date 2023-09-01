@@ -1,0 +1,123 @@
+[gd_scene load_steps=2 format=3 uid="uid://bhncatypwgas4"]
+
+[ext_resource type="Script" path="res://scenes/ui/options.gd" id="1_jc6o1"]
+
+[node name="Options" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jc6o1")
+
+[node name="Parameters" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Parameters"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -78.5
+offset_top = -44.0
+offset_right = 78.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Parameters/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Parameters/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Windows Mode" type="Label" parent="Parameters/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Windows mode"
+
+[node name="VSync" type="Label" parent="Parameters/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "VSync"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Parameters/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="WindowsModeCheckbox" type="OptionButton" parent="Parameters/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+item_count = 3
+selected = 0
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Fullscreen"
+popup/item_1/id = 3
+popup/item_2/text = "Maximized"
+popup/item_2/id = 2
+
+[node name="VsyncCheckbox" type="CheckButton" parent="Parameters/VBoxContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HorizontalContainer" type="HBoxContainer" parent="Parameters/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Labels" type="VBoxContainer" parent="Parameters/VBoxContainer/HorizontalContainer"]
+layout_mode = 2
+
+[node name="Music" type="Label" parent="Parameters/VBoxContainer/HorizontalContainer/Labels"]
+layout_mode = 2
+text = "Music"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SFX" type="Label" parent="Parameters/VBoxContainer/HorizontalContainer/Labels"]
+layout_mode = 2
+text = "SFX"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sliders" type="VBoxContainer" parent="Parameters/VBoxContainer/HorizontalContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Music" type="HSlider" parent="Parameters/VBoxContainer/HorizontalContainer/Sliders"]
+layout_mode = 2
+value = 95.0
+
+[node name="SFX" type="HSlider" parent="Parameters/VBoxContainer/HorizontalContainer/Sliders"]
+layout_mode = 2
+value = 95.0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 40.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 10
+
+[node name="Back to menu" type="Button" parent="MarginContainer"]
+layout_mode = 2
+text = "Back to menu"
+
+[connection signal="item_selected" from="Parameters/VBoxContainer/HBoxContainer/VBoxContainer2/WindowsModeCheckbox" to="." method="_on_windows_mode_checkbox_item_selected"]
+[connection signal="toggled" from="Parameters/VBoxContainer/HBoxContainer/VBoxContainer2/VsyncCheckbox" to="." method="_on_vsync_checkbox_toggled"]
+[connection signal="pressed" from="MarginContainer/Back to menu" to="." method="_on_back_to_menu_pressed"]
