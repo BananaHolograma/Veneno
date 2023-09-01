@@ -6,8 +6,11 @@ extends HBoxContainer
 var poison_points: float = 0.0
 var username: String = ""
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	username_label.text = username
 	poison_points_label.text = str(poison_points)
 	poison_points_label.modulate = Color.LIGHT_GREEN
+	
+	var tween = create_tween()
+	tween.tween_property(self, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN).set_delay(1.0)
+	

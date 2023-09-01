@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhncatypwgas4"]
+[gd_scene load_steps=4 format=3 uid="uid://bhncatypwgas4"]
 
 [ext_resource type="Script" path="res://scenes/ui/options.gd" id="1_jc6o1"]
 [ext_resource type="Texture2D" uid="uid://tmesg8ke1qka" path="res://assets/background/trees&bushes.png" id="2_a4ddh"]
+[ext_resource type="AudioStream" uid="uid://bxaggo0gmpxg8" path="res://assets/music/Patreon Goal Reward Loops - Track 11.wav" id="3_2f0ve"]
 
 [node name="Options" type="Control"]
 layout_mode = 3
@@ -103,11 +104,13 @@ alignment = 1
 
 [node name="Music" type="HSlider" parent="Parameters/VBoxContainer/HorizontalContainer/Sliders"]
 layout_mode = 2
-value = 95.0
+max_value = 1.0
+step = 0.01
 
 [node name="SFX" type="HSlider" parent="Parameters/VBoxContainer/HorizontalContainer/Sliders"]
 layout_mode = 2
-value = 95.0
+max_value = 1.0
+step = 0.01
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -127,6 +130,13 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 text = "Back to menu"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_2f0ve")
+autoplay = true
+bus = &"Music"
+
 [connection signal="item_selected" from="Parameters/VBoxContainer/HBoxContainer/VBoxContainer2/WindowsModeCheckbox" to="." method="_on_windows_mode_checkbox_item_selected"]
 [connection signal="toggled" from="Parameters/VBoxContainer/HBoxContainer/VBoxContainer2/VsyncCheckbox" to="." method="_on_vsync_checkbox_toggled"]
+[connection signal="value_changed" from="Parameters/VBoxContainer/HorizontalContainer/Sliders/Music" to="." method="_on_music_value_changed"]
+[connection signal="value_changed" from="Parameters/VBoxContainer/HorizontalContainer/Sliders/SFX" to="." method="_on_sfx_value_changed"]
 [connection signal="pressed" from="MarginContainer/Back to menu" to="." method="_on_back_to_menu_pressed"]

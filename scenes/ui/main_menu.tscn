@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://mjg8mjuba2vp"]
+[gd_scene load_steps=5 format=3 uid="uid://mjg8mjuba2vp"]
 
 [ext_resource type="Script" path="res://scenes/ui/main_menu.gd" id="1_kchki"]
 [ext_resource type="PackedScene" uid="uid://f74a836ppghx" path="res://scenes/ui/menu_background.tscn" id="2_u3400"]
 [ext_resource type="Theme" uid="uid://dbinna160gh60" path="res://theme/default.tres" id="3_0arwj"]
+[ext_resource type="AudioStream" uid="uid://bxaggo0gmpxg8" path="res://assets/music/Patreon Goal Reward Loops - Track 11.wav" id="4_tbdmk"]
 
 [node name="MainMenu" type="CanvasLayer"]
 script = ExtResource("1_kchki")
@@ -63,6 +64,11 @@ layout_mode = 2
 focus_neighbor_bottom = NodePath("../../NewGame")
 theme = ExtResource("3_0arwj")
 text = "Quit"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_tbdmk")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="MainMenu/MarginContainer/CenterContainer/VBoxContainer/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/CenterContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]

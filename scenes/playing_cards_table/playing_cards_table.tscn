@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b83imna4ns5qu"]
+[gd_scene load_steps=7 format=3 uid="uid://b83imna4ns5qu"]
 
 [ext_resource type="Script" path="res://scenes/playing_cards_table/playing_cards_table.gd" id="1_4nw15"]
 [ext_resource type="PackedScene" uid="uid://d2h45wo1k6dwo" path="res://scenes/playing_cards_table/center_drop_zone.tscn" id="3_5y7pu"]
 [ext_resource type="Texture2D" uid="uid://wx1y8njr2p4v" path="res://assets/icons/exit_white.png" id="4_b75rh"]
 [ext_resource type="Texture2D" uid="uid://dhm6brmujo24i" path="res://assets/icons/exit_left.png" id="4_nk0im"]
 [ext_resource type="Texture2D" uid="uid://c4mr6uppujmcq" path="res://assets/background/poker_table_green.jpg" id="5_y2rfo"]
+[ext_resource type="PackedScene" uid="uid://kcvqpnbj24fo" path="res://scenes/ui/background_music.tscn" id="6_wmfff"]
 
 [node name="PlayingCardsTable" type="Node"]
 script = ExtResource("1_4nw15")
@@ -183,5 +184,7 @@ scale = Vector2(0.8, 0.8)
 mouse_default_cursor_shape = 2
 texture_normal = ExtResource("4_nk0im")
 texture_hover = ExtResource("4_b75rh")
+
+[node name="BackgroundMusic" parent="." instance=ExtResource("6_wmfff")]
 
 [connection signal="pressed" from="Playground/ExitButton" to="." method="_on_texture_button_pressed"]

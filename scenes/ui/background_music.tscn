@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://kcvqpnbj24fo"]
+
+[ext_resource type="AudioStream" uid="uid://x38ynr0r6wbn" path="res://assets/music/VGMA Challenge - July 2nd.wav" id="1_x50vx"]
+[ext_resource type="AudioStream" uid="uid://cgr0kwpmj5hjb" path="res://assets/music/VGMA Challenge - July 16th.wav" id="2_33hgk"]
+[ext_resource type="AudioStream" uid="uid://ces4e6gfsvav7" path="res://assets/music/VGMA Challenge - July 17th.wav" id="3_nvdo1"]
+[ext_resource type="AudioStream" uid="uid://b5nhfhbcl3dhu" path="res://assets/music/VGMA Challenge - July 25th.wav" id="4_a3ajq"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_8hcik"]
+streams_count = 4
+stream_0/stream = ExtResource("1_x50vx")
+stream_0/weight = 1.0
+stream_1/stream = ExtResource("2_33hgk")
+stream_1/weight = 1.0
+stream_2/stream = ExtResource("3_nvdo1")
+stream_2/weight = 1.0
+stream_3/stream = ExtResource("4_a3ajq")
+stream_3/weight = 1.0
+
+[node name="BackgroundMusic" type="AudioStreamPlayer2D"]
+stream = SubResource("AudioStreamRandomizer_8hcik")
+autoplay = true
+bus = &"Music"

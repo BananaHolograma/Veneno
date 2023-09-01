@@ -1,5 +1,7 @@
 class_name PlayingCardsTable extends Node
 
+
+@onready var audio_stream_player: AudioStreamPlayer2D = $AudioStreamPlayer
 @onready var playground: CanvasLayer = $Playground
 @onready var deck_place: Marker2D = $Playground/DeckPlace
 @onready var players: Node = $Players
@@ -29,7 +31,6 @@ var start_counting_players_cards_in_hand: bool = false
 
 func _ready():
 	start_new_game(GlobalGameOptions.active_game_parameters)
-
 	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
 	GlobalGameEvents.emptied_deck.connect(on_emptied_deck)
 	
@@ -151,6 +152,7 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, _pile: PileSlot)
 
 func on_emptied_deck(player: Player):
 	start_counting_players_cards_in_hand = true
+
 
 func show_end_screen_when_no_cards_remaining():
 	if start_counting_players_cards_in_hand:

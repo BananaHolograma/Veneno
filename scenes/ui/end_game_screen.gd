@@ -4,11 +4,13 @@ class_name EndGameScreen extends Control
 @onready var points: VBoxContainer = $Panel/Points
 @onready var display_player_points_scene: PackedScene = preload("res://scenes/ui/display_player_points.tscn")
 
+
 func _enter_tree():
 	modulate.a = 0.0
 	
 	var tween = create_tween()
-	tween.tween_property(self, "modulate:a", 1.0, 1)
+	tween.tween_property(self, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN).set_delay(1.0)
+
 
 func display_result(players: Array = []):
 	if is_inside_tree():
