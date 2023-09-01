@@ -2,6 +2,8 @@
 Use this Godot 4 project as inspiration for your card games or simply have a game. For now, you can only play against the AI, and multiplayer is not implemented yet.
 LICENSE is MIT so you can use the code from this project for whatever you want, even commercially, just don't forget to give the repository a star.
 
+Take a loot at [our organization](https://github.com/godotessentials) to discover other projects.
+
 - Number of players 2 ~ 4
 - French or Spanish deck
 - Average playtime: 5 min
