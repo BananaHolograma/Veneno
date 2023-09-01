@@ -5,10 +5,12 @@
 [sub_resource type="LabelSettings" id="LabelSettings_r1pru"]
 font_size = 40
 font_color = Color(0.298039, 0.894118, 0.415686, 1)
-shadow_size = 20
+shadow_size = 10
 shadow_color = Color(0, 0, 0, 0.184314)
 
 [node name="CollectedCardsLabel" type="Label"]
+modulate = Color(0.192157, 0.0705882, 0.027451, 1)
+z_index = 12
 offset_right = 121.0
 offset_bottom = 27.0
 theme_override_font_sizes/font_size = 30
