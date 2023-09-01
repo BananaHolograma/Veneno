@@ -34,6 +34,16 @@ func collect_cards(cards: Array[PlayingCard]):
 	collected_cards.append_array(cards)
 
 
+func total_poison_points() -> float:
+	var poison_cards = collected_cards.filter(func(card: PlayingCard): return card.is_poison)
+	var poison_points = 0
+	
+	for poison_card in poison_cards:
+		poison_points += poison_card.current_value
+	
+	return poison_points
+
+
 func execute_robot_movement():
 	if not cards_in_hand.is_empty() and not is_human:	
 		var decision_tree = _prepare_decision_tree()

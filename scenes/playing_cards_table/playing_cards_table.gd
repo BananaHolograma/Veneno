@@ -1,5 +1,6 @@
 class_name PlayingCardsTable extends Node
 
+@onready var playground: CanvasLayer = $Playground
 @onready var deck_place: Marker2D = $Playground/DeckPlace
 @onready var players: Node = $Players
 @onready var card_zones: Array[GridContainer] = [
@@ -8,6 +9,8 @@ class_name PlayingCardsTable extends Node
  	%PlayerThreeCardZone,
  	%PlayerFourCardZone
 ]
+
+@onready var end_game_screen: PackedScene = preload("res://scenes/ui/end_game_screen.tscn")
 
 @export_range(0, 4, 1) var MAX_NUMBER_OF_PLAYERS: int = 4
 
@@ -24,7 +27,6 @@ var current_deck: DeckPlaceholder
 var turns: Array = []
 
 func _ready():
-
 	start_new_game(GlobalGameOptions.active_game_parameters)
 
 	GlobalGameEvents.card_dropped_in_pile.connect(on_card_dropped_in_pile)
@@ -146,7 +148,9 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, _pile: PileSlot)
 
 
 func on_emptied_deck(player: Player):
-	pass
+	var end_game = end_game_screen.instantiate() as EndGameScreen
+	playground.add_child(end_game)
+	end_game.display_result(current_players.values())
 
 
 

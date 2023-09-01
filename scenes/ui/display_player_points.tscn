@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw8eb73krv8my"]
+
+[ext_resource type="Script" path="res://scenes/ui/display_player_points.gd" id="1_6gdha"]
+[ext_resource type="Texture2D" uid="uid://vy7xon5ajqi6" path="res://assets/icons/character.png" id="1_ke00h"]
+[ext_resource type="Texture2D" uid="uid://ddyf5pxo14dsg" path="res://assets/icons/skull.svg" id="2_tnwx2"]
+
+[node name="Player" type="HBoxContainer"]
+size_flags_vertical = 3
+script = ExtResource("1_6gdha")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_direction = 1
+layout_mode = 2
+texture = ExtResource("1_ke00h")
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 2
+text = "You:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 10
+alignment = 2
+
+[node name="PoisonPoints" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "10"
+horizontal_alignment = 2
+
+[node name="PoisonIcon" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+texture = ExtResource("2_tnwx2")
+expand_mode = 1
+stretch_mode = 4
