@@ -80,9 +80,15 @@ func execute_robot_movement():
 					if _decides_to_use_poison(decision_tree):
 						_drop_poison_card_in_pile(decision_tree)
 					else:
-						_drop_normal_card_in_empty_pile(decision_tree)
+						if _can_drop_card_on_empty_pile(decision_tree):
+							_drop_normal_card_in_empty_pile(decision_tree)
+						else:
+							_drop_normal_card_in_pile(decision_tree)
 				else: 
-					_drop_normal_card_in_empty_pile(decision_tree)
+					if _can_drop_on_suit_pile(decision_tree):
+						_drop_normal_card_in_pile(decision_tree)
+					else:
+						_drop_normal_card_in_empty_pile(decision_tree)
 
 
 func _prepare_decision_tree() -> Dictionary:
@@ -112,7 +118,7 @@ func _prepare_decision_tree() -> Dictionary:
 	if _empty_piles_are_available(decision_tree) and _piles_with_suit_are_available(decision_tree):
 		for pile_with_suit in decision_tree["piles_with_suit"].values():
 			pile_with_suit["cards_to_drop"] = pile_with_suit["cards_to_drop"].filter(func(card: PlayingCard): return not card in decision_tree["empty_piles"][0]["cards_to_drop"])
-		
+	
 	return decision_tree
 	
 
@@ -126,7 +132,7 @@ func _drop_normal_card_in_pile(decision_tree: Dictionary) -> void:
 			
 func _drop_normal_card_in_empty_pile(decision_tree: Dictionary) -> void:
 	if _empty_piles_are_available(decision_tree):
-		var selected_pile_data = decision_tree["empty_piles"].pick_random()
+		var selected_pile_data = decision_tree["empty_piles"].filter(func(data: Dictionary): return data["cards_to_drop"].size() > 0).pick_random()
 		selected_pile_data["pile"].drop_card_in_pile(self, selected_pile_data["cards_to_drop"].pick_random())
 
 
@@ -148,4 +154,12 @@ func _piles_with_suit_are_available(decision_tree: Dictionary) -> bool:
 	
 
 func _empty_piles_are_available(decision_tree: Dictionary) -> bool:
-	return  decision_tree["empty_piles"].size() > 0
+	return decision_tree["empty_piles"].size() > 0
+
+
+func _can_drop_on_suit_pile(decision_tree: Dictionary) -> bool:
+		return not decision_tree["piles_with_suit"].filter(func(data: Dictionary): return data["cards_to_drop"].size() > 0).is_empty()
+
+
+func _can_drop_card_on_empty_pile(decision_tree: Dictionary) -> bool:
+	return not decision_tree["empty_piles"].filter(func(data: Dictionary): return data["cards_to_drop"].size() > 0).is_empty()
