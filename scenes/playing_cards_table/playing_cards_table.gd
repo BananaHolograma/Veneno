@@ -25,6 +25,7 @@ var card_zone_positions: Dictionary = {}
 var current_deck: DeckPlaceholder
 
 var turns: Array = []
+var start_counting_players_cards_in_hand: bool = false
 
 func _ready():
 	start_new_game(GlobalGameOptions.active_game_parameters)
@@ -145,13 +146,23 @@ func on_card_dropped_in_pile(player: Player, card: PlayingCard, _pile: PileSlot)
 		next_player = turns[0]
 	
 	change_turn_to(next_player)
-
+	show_end_screen_when_no_cards_remaining()
+	
 
 func on_emptied_deck(player: Player):
-	var end_game = end_game_screen.instantiate() as EndGameScreen
-	playground.add_child(end_game)
-	end_game.display_result(current_players.values())
+	start_counting_players_cards_in_hand = true
 
+func show_end_screen_when_no_cards_remaining():
+	if start_counting_players_cards_in_hand:
+		var remaining_cards: int = 0
+		for current_player in current_players.values() as Array[Player]:
+			remaining_cards += current_player.cards_in_hand.size()
+			if remaining_cards == 0:
+				var end_game = end_game_screen.instantiate() as EndGameScreen
+				playground.add_child(end_game)
+				end_game.display_result(current_players.values())
+			
+	
 
 
 func _on_texture_button_pressed():
