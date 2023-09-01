@@ -1,14 +1,14 @@
 class_name PlayingCardsTable extends Node
 
 
-@onready var audio_stream_player: AudioStreamPlayer2D = $AudioStreamPlayer
+@onready var audio_stream_player: AudioStreamPlayer2D = $BackgroundMusic
 @onready var playground: CanvasLayer = $Playground
 @onready var deck_place: Marker2D = $Playground/DeckPlace
 @onready var players: Node = $Players
 @onready var card_zones: Array[GridContainer] = [
 	%PlayerOneCardZone,
- 	%PlayerTwoCardZone,
  	%PlayerThreeCardZone,
+ 	%PlayerTwoCardZone,
  	%PlayerFourCardZone
 ]
 
@@ -75,6 +75,7 @@ func add_players_to_table(new_players: Array[Dictionary]):
 		add_player_to_table(player)
 		await (get_tree().create_timer(0.45 * MAX_CARDS_IN_HAND)).timeout
 		player_position += 1
+	
 		
 	turns.append_array(current_players.values())
 	active_player = turns.pick_random()

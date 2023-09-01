@@ -12,7 +12,7 @@ script = ExtResource("1_4nw15")
 
 [node name="Players" type="Node" parent="."]
 
-[node name="Playground" type="CanvasLayer" parent="."]
+[node name="Playground" type="CanvasLayer" parent="." groups=["playground"]]
 
 [node name="Background" type="Control" parent="Playground"]
 show_behind_parent = true

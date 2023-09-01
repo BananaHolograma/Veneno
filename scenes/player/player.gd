@@ -63,7 +63,10 @@ func execute_robot_movement():
 						else:
 							_drop_normal_card_in_pile(decision_tree)
 					else:
-						_drop_normal_card_in_empty_pile(decision_tree)
+						if _can_drop_card_on_empty_pile(decision_tree):
+							_drop_normal_card_in_empty_pile(decision_tree)
+						else:
+							_drop_normal_card_in_pile(decision_tree)
 					
 				elif has_allowed_suit_cards_to_drop and not there_are_empty_piles:
 					if _decides_to_use_poison(decision_tree):
@@ -72,7 +75,10 @@ func execute_robot_movement():
 						_drop_normal_card_in_pile(decision_tree)
 						
 				elif not has_allowed_suit_cards_to_drop and there_are_empty_piles:
-					_drop_normal_card_in_empty_pile(decision_tree)
+					if _can_drop_card_on_empty_pile(decision_tree):
+						_drop_normal_card_in_empty_pile(decision_tree)
+					else: 
+						_drop_poison_card_in_pile(decision_tree)
 				else:
 					_drop_poison_card_in_pile(decision_tree)
 			else:

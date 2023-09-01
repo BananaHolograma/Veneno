@@ -11,7 +11,7 @@ const GROUP_NAME = "piles"
 @onready var points_label: Label = $"../InfoMarker/PointsLabel"
 @onready var poison_points_label: Label = $"../InfoMarker/PoisonPointsLabel"
 @onready var audio_stream_player_2d: AudioStreamPlayer2D = $"../../../../../AudioStreamPlayer2D"
-
+@onready var collected_cards_label_scene: PackedScene = preload("res://scenes/ui/collected_cards_label.tscn")
 
 const suit_symbol_scene: PackedScene = preload("res://scenes/deck/suit_symbols/suit_symbol.tscn")
 var actual_player: Player
@@ -164,6 +164,9 @@ func reset_pile() -> void:
 
 func on_pile_collected(player: Player, cards: Array[PlayingCard], pile: PileSlot) -> void:
 	if pile == self and player == actual_player:
+		var collected_cards_label = collected_cards_label_scene.instantiate()
+		collected_cards_label.global_position = player.card_zone["zone"].global_position + cards[0].symbol_texture.get_rect().size / 2
+		get_tree().get_first_node_in_group("playground").add_child(collected_cards_label)
 		player.collect_cards(cards)
 		reset_pile()
 

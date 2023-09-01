@@ -131,6 +131,7 @@ layout_mode = 2
 text = "Back to menu"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -4)
 stream = ExtResource("3_2f0ve")
 autoplay = true
 bus = &"Music"
